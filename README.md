@@ -1,6 +1,9 @@
-# vendor-management-ui
+# Vendor Management System UI
 
-> A Vue.js project
+## Clone project
+```
+$ git clone https://github.com/erwindev/vendor-management-ui.git
+```
 
 ## Build Setup
 

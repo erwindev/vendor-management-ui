@@ -28,6 +28,14 @@ npm run e2e
 
 # run all tests
 npm test
+
+# lints and fix files
+npm run lint
 ```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+## Start JSON Server
+```bash
+cd dummy_data
+json-server --watch software.json
+```
+Note: In order to test the UI application independent of the backend, we will fake the data using `json-server`.

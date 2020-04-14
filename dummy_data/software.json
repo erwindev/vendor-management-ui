@@ -1,0 +1,24 @@
+{
+  "softwareList": [
+    {
+      "id": 1,
+      "software_name": "Gmail",
+      "vendor_name": "Google Inc"
+    },
+    {
+      "id": 2,
+      "software_name": "Microsoft Word",
+      "vendor_name": "Microsoft"
+    },
+    {
+      "id": 3,
+      "software_name": "OpenVPN",
+      "vendor_name": "OpenVPN Inc"
+    },
+    {
+      "software_name": "Google Chrome",
+      "vendor_name": "Google",
+      "id": 5
+    }
+  ]
+}

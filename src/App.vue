@@ -1,23 +1,21 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
+    <vmsui-navbar/>
+    <b-container>
+        <router-view />
+   </b-container>
   </div>
 </template>
 
 <script>
+import Navbar from '@/components/shared/Navbar.vue'
 export default {
-  name: 'App'
+  name: 'app',
+  components: {
+    'vmsui-navbar': Navbar
+  }
 }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>

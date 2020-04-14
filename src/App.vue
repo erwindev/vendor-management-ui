@@ -1,10 +1,8 @@
 <template>
-  <div id="app">
+  <b-container fluid="true">
     <vmsui-navbar/>
-    <b-container>
-        <router-view />
-   </b-container>
-  </div>
+    <router-view />
+  </b-container>
 </template>
 
 <script>

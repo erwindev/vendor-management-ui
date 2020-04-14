@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <b-container>
         <software-form
           @add:software="addSoftware"
         />
@@ -13,7 +13,7 @@
         <software-interactive-table
           :softwareList = "softwareList"
         />
-    </div>
+    </b-container>
 </template>
 
 <script>

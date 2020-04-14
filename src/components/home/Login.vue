@@ -1,27 +1,34 @@
 <template>
-    <div id="login">
-      <h1>Sign In</h1>
-      <form action="">
-          <div class="row">
-            <div class="form-group col-lg-6">
-              <label for="username">Username</label><br>
-              <input id="username" class="form-control" type="text" value="">
-            </div>
-          </div>
-          <div class="row">
-            <div class="form-group col-lg-6">
-              <label for="password">Password</label><br>
-              <input id="password" class="form-control" type="password" value="">
-              </div>
-          </div>
-          <div class="row">
-            <div class="form-group col-lg-6">
-              <button type="button" class="btn btn-primary">Login</button>
-            </div>
-          </div>
-      </form>
-      <router-link :to="{name: 'register'}">Click to Register!</router-link>
-    </div>
+     <b-container>
+        <h1>Sign In</h1>
+        <b-form>
+            <b-row>
+              <b-col class="col-lg-6">
+                <b-form-group
+                  label="Username"
+                >
+                <b-form-input id="username"></b-form-input>
+                </b-form-group>
+              </b-col>
+            </b-row>
+            <b-row>
+              <b-col class="col-lg-6">
+                <b-form-group
+                  label="Password"
+                >
+                <b-form-input id="password" type="password"></b-form-input>
+                </b-form-group>
+              </b-col>
+            </b-row>
+            <b-row>
+              <b-col class="col-lg-6">
+                <b-button>Register</b-button>
+              </b-col>
+            </b-row>
+        </b-form>
+        <br>
+        <router-link :to="{name: 'register'}">Click to Register!</router-link>
+     </b-container>
 </template>
 
 <script>

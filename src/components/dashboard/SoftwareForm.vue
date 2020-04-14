@@ -1,8 +1,8 @@
 <template>
-  <div id="software-form">
-    <form @submit.prevent="handleSubmit">
+  <b-container>
+    <b-form @submit.prevent="handleSubmit">
       <h1>Software</h1>
-        <div class="row">
+        <b-row>
           <div class="form-group col-lg-6">
             <label>Software Name</label>
             <input ref="first"
@@ -14,8 +14,8 @@
                     class="form-control"
             />
           </div>
-        </div>
-        <div class="row">
+        </b-row>
+        <b-row>
           <div class="form-group col-lg-6">
             <label>Vendor Name</label>
             <input type="text"
@@ -25,22 +25,22 @@
                     class="form-control"
             />
           </div>
-        </div>
-        <div class="row">
+        </b-row>
+        <b-row>
           <p v-if="error && submitting" class="error-message">
               ❗Please fill out all required fields
           </p>
           <p v-if="success" class="success-message">
               ✅ Software successfully added
           </p>
-        </div>
-        <div class="row">
+        </b-row>
+        <b-row>
           <div class="form-group col-lg-6">
           <button class="btn btn-primary">Add Software</button>
           </div>
-        </div>
-    </form>
-  </div>
+        </b-row>
+    </b-form>
+  </b-container>
 </template>
 
 <script>

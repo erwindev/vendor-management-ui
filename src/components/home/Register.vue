@@ -1,50 +1,68 @@
 <template>
-    <div id="register">
-    <h1>Register</h1>
-    <form action="">
-        <div class="row">
-          <div class="form-group col-lg-6">
-            <label>First Name</label><br>
-            <input id="firstname" class="form-control" type="text" value="">
-          </div>
-        </div>
-        <div class="row">
-          <div class="form-group col-lg-6">
-            <label>Last Name</label><br>
-            <input id="lastname" class="form-control" type="text" value="">
-          </div>
-        </div>
-        <div class="row">
-          <div class="form-group col-lg-6">
-            <label>Username</label><br>
-            <input id="username" class="form-control" type="text" value="">
-          </div>
-        </div>
-        <div class="row">
-          <div class="form-group col-lg-6">
-            <label>Email</label><br>
-            <input id="email" class="form-control" type="text" value="">
-          </div>
-        </div>
-        <div class="row">
-          <div class="form-group col-lg-6">
-            <label for="password">Password</label><br>
-            <input id="password" class="form-control" type="password" value="">
-            </div>
-        </div>
-        <div class="row">
-          <div class="form-group col-lg-6">
-            <label for="repeatpassword">Password</label><br>
-            <input id="repeatpassword" class="form-control" type="password" value="">
-            </div>
-        </div>
-        <div class="row">
-          <div class="form-group col-lg-6">
-            <button type="button" class="btn btn-primary">Register</button>
-          </div>
-        </div>
-    </form>
-    </div>
+    <b-container>
+      <h1>Register</h1>
+      <b-form>
+          <b-row>
+            <b-col class="col-lg-6">
+              <b-form-group
+                label="First Name"
+              >
+              <b-form-input id="firstname"></b-form-input>
+            </b-form-group>
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col class="col-lg-6">
+              <b-form-group
+                label="Last Name"
+              >
+              <b-form-input id="lastname"></b-form-input>
+              </b-form-group>
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col class="col-lg-6">
+              <b-form-group
+                label="Username"
+              >
+              <b-form-input id="username"></b-form-input>
+              </b-form-group>
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col class="col-lg-6">
+              <b-form-group
+                label="Email"
+              >
+              <b-form-input id="email"></b-form-input>
+              </b-form-group>
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col class="col-lg-6">
+              <b-form-group
+                label="Password"
+              >
+              <b-form-input id="password" type="password"></b-form-input>
+              </b-form-group>
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col class="col-lg-6">
+              <b-form-group
+                label="Confirm Password"
+              >
+              <b-form-input id="repeatpassword" type="password"></b-form-input>
+              </b-form-group>
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col class="col-lg-6">
+              <b-button>Register</b-button>
+            </b-col>
+          </b-row>
+      </b-form>
+    </b-container>
 </template>
 
 <script>

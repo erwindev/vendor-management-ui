@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import SoftwareTable from './SoftwareTable.vue'
 import SoftwareInteractiveTable from './SoftwareInteractiveTable.vue'
 import SoftwareForm from './SoftwareForm.vue'
@@ -36,57 +37,47 @@ export default {
     this.getSofwtareList()
   },
   methods: {
-    async getSofwtareList () {
-      try {
-        const response = await fetch('http://localhost:3000/softwareList')
-        const data = await response.json()
-        this.softwareList = data
-      } catch (error) {
-        console.error(error)
-      }
+
+    getSofwtareList () {
+      axios.get('http://localhost:3000/softwareList')
+        .then(response => {
+          const data = response.data
+          this.softwareList = data
+        }, (error) => {
+          console.error(error)
+        })
     },
 
-    async addSoftware (software) {
-      try {
-        const response = await fetch('http://localhost:3000/softwareList', {
-          method: 'POST',
-          body: JSON.stringify(software),
-          headers: {'Content-type': 'application/json; charset=UTF-8'}
+    addSoftware (software) {
+      axios.post('http://localhost:3000/softwareList', software)
+        .then(response => {
+          const data = response.data
+          this.softwareList = [...this.softwareList, data]
+        }, (error) => {
+          console.error(error)
         })
-        const data = await response.json()
-        this.softwareList = [...this.softwareList, data]
-      } catch (error) {
-        console.error(error)
-      }
     },
 
-    async editSoftware (id, updatedSoftware) {
-      try {
-        const response = await fetch(`http://localhost:3000/softwareList/${id}`, {
-          method: 'PUT',
-          body: JSON.stringify(updatedSoftware),
-          headers: {'Content-type': 'application/json; charset=UTF-8'}
+    editSoftware (id, updatedSoftware) {
+      axios.put(`http://localhost:3000/softwareList/${id}`, updatedSoftware)
+        .then(response => {
+          const data = response.data
+          this.softwareList = this.softwareList.map(software =>
+            software.id === id ? data : software)
+        }, (error) => {
+          console.error(error)
         })
-        const data = await response.json()
-        this.softwareList = this.softwareList.map(software =>
-          software.id === id ? data : software)
-      } catch (error) {
-        console.error(error)
-      }
     },
 
-    async deleteSoftware (id) {
-      try {
-        await fetch(`http://localhost:3000/softwareList/${id}`, {
-          method: 'DELETE'
+    deleteSoftware (id) {
+      axios.delete(`http://localhost:3000/softwareList/${id}`)
+        .then(response => {
+          this.softwareList = this.softwareList.filter(
+            software => software.id !== id)
+        }, (error) => {
+          console.error(error)
         })
-        this.softwareList = this.softwareList.filter(
-          software => software.id !== id)
-      } catch (error) {
-        console.error(error)
-      }
     }
-
   }
 }
 </script>

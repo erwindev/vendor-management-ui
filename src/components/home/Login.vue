@@ -22,7 +22,7 @@
             </b-row>
             <b-row>
               <b-col class="col-lg-6">
-                <b-button type="submit">Register</b-button>
+                <b-button type="submit">Login</b-button>
               </b-col>
             </b-row>
         </b-form>
@@ -51,7 +51,17 @@ export default {
 
         axios.post('http://localhost:5000/api/v1/auth/login', data)
           .then((response) => {
-            console.log('Logged in')
+            let isAdmin = response.data.is_admin
+            localStorage.setItem('user', JSON.stringify(response.data))
+            localStorage.setItem('jwt', response.data.token)
+
+            if (localStorage.getItem('jwt') != null) {
+              if (isAdmin === 1) {
+                router.push('admin')
+              } else {
+                router.push('dashboard')
+              }
+            }
             router.push('/dashboard')
           })
           .catch((errors) => {

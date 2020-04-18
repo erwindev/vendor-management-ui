@@ -32,43 +32,22 @@
 </template>
 
 <script>
-import router from '../../router'
-import axios from 'axios'
-
 export default {
   name: 'Login',
+  data () {
+    return {
+      email: '',
+      password: ''
+    }
+  },
   methods: {
-    login: (e) => {
-      e.preventDefault()
+    login: function (e) {
       let email = e.target.elements.email.value
       let password = e.target.elements.password.value
-
-      let login = () => {
-        let data = {
-          email: email,
-          password: password
-        }
-
-        axios.post('http://localhost:5000/api/v1/auth/login', data)
-          .then((response) => {
-            let isAdmin = response.data.is_admin
-            localStorage.setItem('user', JSON.stringify(response.data))
-            localStorage.setItem('jwt', response.data.token)
-
-            if (localStorage.getItem('jwt') != null) {
-              if (isAdmin === 1) {
-                router.push('admin')
-              } else {
-                router.push('dashboard')
-              }
-            }
-            router.push('/dashboard')
-          })
-          .catch((errors) => {
-            console.log('Cannot log in')
-          })
-      }
-      login()
+      this.$store
+        .dispatch('login', { email, password })
+        .then(() => this.$router.push('/dashboard'))
+        .catch(err => console.log(err))
     }
   }
 }

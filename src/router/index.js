@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from '../store.js'
 import Home from '../components/home/Home.vue'
 import Register from '../components/home/Register.vue'
 import Login from '../components/home/Login.vue'
@@ -11,26 +12,17 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: Home,
-    meta: {
-      guest: true
-    }
+    component: Home
   },
   {
     path: '/login',
     name: 'login',
-    component: Login,
-    meta: {
-      guest: true
-    }
+    component: Login
   },
   {
     path: '/register',
     name: 'register',
-    component: Register,
-    meta: {
-      guest: true
-    }
+    component: Register
   },
   {
     path: '/dashboard',
@@ -49,29 +41,11 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (localStorage.getItem('jwt') == null) {
-      next({
-        path: '/login',
-        params: { nextUlr: to.fullPath }
-      })
-    } else {
-      let user = JSON.parse(localStorage.getItem('user'))
-      if (to.matched.some(record => record.meta.is_admin)) {
-        if (user.is_admin === 1) {
-          next()
-        } else {
-          next({name: 'dashboard'})
-        }
-      } else {
-        next()
-      }
-    }
-  } else if (to.matched.some(record => record.meta.guest)) {
-    if (localStorage.getItem('jwt') == null) {
+    if (store.getters.isLoggedIn) {
       next()
-    } else {
-      next({name: 'dashboard'})
+      return
     }
+    next('/login')
   } else {
     next()
   }

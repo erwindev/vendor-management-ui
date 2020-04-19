@@ -14,23 +14,43 @@ export default new Vuex.Store({
     auth_request (state) {
       state.status = 'authenticating'
     },
-    logout_request (state) {
-      state.status = 'logging out'
-    },
     auth_success (state, token, user) {
       state.status = 'success'
       state.token = token
       state.user = user
     },
-    error (state) {
-      state.status = 'error'
+    logout_request (state) {
+      state.status = 'logging out'
     },
     logout (state) {
       state.status = ''
       state.token = ''
+    },
+    reg_request (state) {
+      state.status = 'registering'
+    },
+    reg_success (state) {
+      state.status = ''
+    },
+    error (state) {
+      state.status = 'error'
     }
   },
   actions: {
+    register ({ commit }, resgistration) {
+      return new Promise((resolve, reject) => {
+        commit('reg_request')
+        axios({ url: 'http://localhost:5000/api/v1/user/', data: resgistration, method: 'POST' })
+          .then(resp => {
+            commit('reg_success')
+            resolve(resp)
+          })
+          .catch(err => {
+            commit('error')
+            reject(err)
+          })
+      })
+    },
     login ({ commit }, user) {
       return new Promise((resolve, reject) => {
         commit('auth_request')

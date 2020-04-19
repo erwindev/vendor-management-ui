@@ -37,7 +37,7 @@
           <b-row>
             <b-col class="col-lg-6">
               <b-form-group label="Confirm Password">
-              <b-form-input v-model="confirmpassword" v-validate="'required|confirmed:password'" name="confirmpassword" type="password"></b-form-input>
+              <b-form-input v-model="confirmpassword" v-validate="'required|confirmed:password'" name="confirmpassword" type="password" ref="password"></b-form-input>
               <span v-show="errors.has('confirmpassword')" class="text-danger">{{ errors.first('confirmpassword') }}</span>
               </b-form-group>
             </b-col>
@@ -67,7 +67,14 @@ export default {
     register: function (e) {
       this.$validator.validateAll().then((result) => {
         if (result) {
-
+          let firstname = e.target.elements.firstname.value
+          let lastname = e.target.elements.lastname.value
+          let email = e.target.elements.email.value
+          let password = e.target.elements.password.value
+          this.$store
+            .dispatch('register', { firstname, lastname, email, password })
+            .then(() => this.$router.push('/login'))
+            .catch(err => console.log(err))
         }
       })
     }

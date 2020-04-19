@@ -14,10 +14,10 @@ export default new Vuex.Store({
     auth_request (state) {
       state.status = 'authenticating'
     },
-    auth_success (state, token, user) {
+    auth_success (state, user, token) {
       state.status = 'success'
-      state.token = token
       state.user = user
+      state.token = token
     },
     logout_request (state) {
       state.status = 'logging out'
@@ -61,7 +61,7 @@ export default new Vuex.Store({
             localStorage.setItem('jwt', token)
             // Add the following line:
             axios.defaults.headers.common['Authorization'] = 'Bearrer ' + token
-            commit('auth_success', token, user)
+            commit('auth_success', user, token)
             resolve(resp)
           })
           .catch(err => {
@@ -82,6 +82,7 @@ export default new Vuex.Store({
             resolve(resp)
           })
           .catch(err => {
+            localStorage.removeItem('jwt')
             commit('error')
             reject(err)
           })
@@ -90,6 +91,7 @@ export default new Vuex.Store({
   },
   getters: {
     isLoggedIn: state => !!state.token,
-    authStatus: state => state.status
+    authStatus: state => state.status,
+    user: state => state.user
   }
 })

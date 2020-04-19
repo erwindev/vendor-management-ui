@@ -4,12 +4,6 @@
           @add:software="addSoftware"
         />
 
-        <software-table
-          :softwareList = "softwareList"
-          @delete:software="deleteSoftware"
-          @edit:software="editSoftware"
-        />
-
         <software-interactive-table
           :softwareList = "softwareList"
         />

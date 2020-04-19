@@ -11,7 +11,7 @@
                           User
                       </template>
                       <b-dropdown-item href="javascript:alert('My Profile')">Profile</b-dropdown-item>
-                      <b-dropdown-item href="#" @click="logout()">Logout Out</b-dropdown-item>
+                      <b-dropdown-item href="#" @click="logout()">Logout</b-dropdown-item>
                   </b-nav-item-dropdown>
             </b-navbar-nav>
         </b-collapse>
@@ -22,7 +22,8 @@
 export default {
   name: 'vmsui-navbar',
   computed: {
-    isLoggedIn: function () { return this.$store.getters.isLoggedIn }
+    isLoggedIn: function () { return this.$store.getters.isLoggedIn },
+    user: function () { return this.$store.getters.user }
   },
   methods: {
     logout: function () {

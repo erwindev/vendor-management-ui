@@ -1,5 +1,5 @@
 <template>
-  <b-container fluid>
+  <b-container fluid="true">
     <!-- User Interface controls -->
     <b-row>
       <b-col lg="4" class="my-2">

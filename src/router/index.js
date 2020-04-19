@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import store from '../store.js'
+import auth from '../store/index.js'
 import Home from '../components/home/Home.vue'
 import Register from '../components/home/Register.vue'
 import Login from '../components/home/Login.vue'
@@ -41,7 +41,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (store.getters.isLoggedIn) {
+    if (auth.getters.isLoggedIn) {
       next()
       return
     }

@@ -1,0 +1,10 @@
+export const AUTH_REQUEST = 'AUTH_REQUEST'
+export const AUTH_SUCCESS = 'AUTH_SUCCESS'
+export const REG_REQUEST = 'REG_REQUEST'
+export const REG_SUCCESS = 'REG_SUCCESS'
+export const LOGOUT_REQUEST = 'LOGOUT_REQUEST'
+export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
+
+export const SAVE_USER = 'SAVE_USER'
+export const ERROR = 'ERROR'
+export const SUCCESS = 'SUCCESS'

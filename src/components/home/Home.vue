@@ -1,6 +1,6 @@
 <template>
     <b-container fluid="true">
-        <b-jumbotron fluid="false">
+        <b-jumbotron fluid>
             <template v-slot:header>Vendor Management System</template>
 
             <template v-slot:lead>

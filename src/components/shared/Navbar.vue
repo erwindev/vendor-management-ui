@@ -8,7 +8,7 @@
                   <b-nav-item v-if="isLoggedIn" :to="{name: 'dashboard'}">Dashboard</b-nav-item>
                   <b-nav-item-dropdown v-if="isLoggedIn" right>
                       <template v-slot:button-content>
-                          User
+                          {{ user.firstname + ' ' + user.lastname }}
                       </template>
                       <b-dropdown-item href="javascript:alert('My Profile')">Profile</b-dropdown-item>
                       <b-dropdown-item href="#" @click="logout()">Logout</b-dropdown-item>

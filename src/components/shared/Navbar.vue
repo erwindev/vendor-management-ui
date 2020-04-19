@@ -10,7 +10,7 @@
                       <template v-slot:button-content>
                           {{ user.firstname + ' ' + user.lastname }}
                       </template>
-                      <b-dropdown-item href="javascript:alert('My Profile')">Profile</b-dropdown-item>
+                      <b-dropdown-item :to="{name: 'profile'}">Profile</b-dropdown-item>
                       <b-dropdown-item href="#" @click="logout()">Logout</b-dropdown-item>
                   </b-nav-item-dropdown>
             </b-navbar-nav>
@@ -29,8 +29,13 @@ export default {
     logout: function () {
       this.$store
         .dispatch('logout')
-        .then(() => this.$router.push('/'))
-        .catch(err => console.log(err))
+        .then(() => {
+          this.$router.push('/')
+        })
+        .catch(err => {
+          console.log(err)
+          this.$router.push('/')
+        })
     }
   }
 }

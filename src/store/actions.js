@@ -7,7 +7,6 @@ import {
   REG_REQUEST,
   LOGOUT_REQUEST,
   LOGOUT_SUCCESS,
-  SAVE_USER,
   ERROR,
   SUCCESS
 } from './mutation-types'
@@ -27,18 +26,29 @@ export const userActions = {
         })
     })
   },
+  edituser ({ commit }, user) {
+    return new Promise((resolve, reject) => {
+      commit(REG_REQUEST)
+      axios.defaults.headers.common['Authorization'] = 'Bearrer ' + localStorage.getItem('jwt')
+      axios({ url: `${API_BASE}/user/`, data: user, method: 'PUT' })
+        .then(resp => {
+          commit(SUCCESS)
+          resolve(resp)
+        })
+        .catch((err) => {
+          commit(ERROR)
+          reject(err)
+        })
+    })
+  },
   login ({ commit }, user) {
     return new Promise((resolve, reject) => {
       commit(AUTH_REQUEST)
       axios({ url: `${API_BASE}/auth/login`, data: user, method: 'POST' })
         .then(resp => {
           const token = resp.data.token
-          const user = resp.data
           localStorage.setItem('jwt', token)
-          // Add the following line:
-          axios.defaults.headers.common['Authorization'] = 'Bearrer ' + token
-          commit(AUTH_SUCCESS, token)
-          commit(SAVE_USER, user)
+          commit(AUTH_SUCCESS, resp.data)
           resolve(resp)
         })
         .catch((err) => {
@@ -51,16 +61,17 @@ export const userActions = {
   logout ({ commit }) {
     return new Promise((resolve, reject) => {
       commit(LOGOUT_REQUEST)
+      axios.defaults.headers.common['Authorization'] = 'Bearrer ' + localStorage.getItem('jwt')
       axios({url: `${API_BASE}/auth/logout`, data: {}, method: 'POST'})
         .then(resp => {
-          localStorage.removeItem('jwt')
+          localStorage.clear()
           delete axios.defaults.headers.common['Authorization']
           commit(LOGOUT_SUCCESS)
           resolve(resp)
         })
         .catch((err) => {
-          localStorage.removeItem('jwt')
-          commit(ERROR)
+          localStorage.clear()
+          commit(LOGOUT_SUCCESS)
           reject(err)
         })
     })

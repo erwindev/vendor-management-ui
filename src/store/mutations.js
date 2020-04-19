@@ -4,7 +4,6 @@ import {
   REG_REQUEST,
   LOGOUT_REQUEST,
   LOGOUT_SUCCESS,
-  SAVE_USER,
   ERROR,
   SUCCESS
 } from './mutation-types'
@@ -13,9 +12,10 @@ export const userMutations = {
   [AUTH_REQUEST] (state) {
     state.status = 'authenticating'
   },
-  [AUTH_SUCCESS] (state, token) {
+  [AUTH_SUCCESS] (state, payload) {
     state.status = 'success'
-    state.token = token
+    state.token = payload.token
+    state.user = payload
   },
   [REG_REQUEST] (state) {
     state.status = 'registering'
@@ -24,12 +24,9 @@ export const userMutations = {
     state.status = 'logging out'
   },
   [LOGOUT_SUCCESS] (state) {
-    state.status = 'success'
-    state.token = ''
-    state.user = {}
-  },
-  [SAVE_USER] (state, user) {
-    state.user = user
+    state.status = null
+    state.token = null
+    state.user = null
   },
   [SUCCESS] (state) {
     state.status = 'success'

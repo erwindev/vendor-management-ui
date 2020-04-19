@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import createPersistedState from 'vuex-persistedstate'
 
 import {userMutations} from './mutations'
 import {userActions} from './actions'
@@ -14,6 +15,7 @@ export default new Vuex.Store({
     token: localStorage.getItem('jwt') || '',
     user: {}
   },
+  plugins: [createPersistedState()],
   mutations: Object.assign({}, userMutations),
   actions: Object.assign({}, userActions),
   getters: Object.assign({}, userInfoGetters)

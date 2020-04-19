@@ -5,6 +5,7 @@ import Home from '../components/home/Home.vue'
 import Register from '../components/home/Register.vue'
 import Login from '../components/home/Login.vue'
 import Dashboard from '../components/dashboard/Dashboard.vue'
+import UserProfile from '../components/home/UserProfile.vue'
 
 Vue.use(VueRouter)
 
@@ -28,6 +29,14 @@ const routes = [
     path: '/dashboard',
     name: 'dashboard',
     component: Dashboard,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/profile',
+    name: 'profile',
+    component: UserProfile,
     meta: {
       requiresAuth: true
     }

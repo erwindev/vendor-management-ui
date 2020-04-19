@@ -33,6 +33,11 @@
                 <span>{{ user.last_login_date }}</span>
             </b-col>
           </b-row>
+          <b-row>
+            <b-col class="col-lg-4 text-right">
+                <b-button @click="edit">Edit</b-button>
+            </b-col>
+          </b-row>
     </b-container>
 </template>
 
@@ -41,6 +46,11 @@ export default {
   name: 'UserProfile',
   computed: {
     user: function () { return this.$store.getters.user }
+  },
+  methods: {
+    edit: function () {
+      alert('yo!')
+    }
   }
 }
 </script>

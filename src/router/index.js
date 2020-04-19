@@ -5,7 +5,7 @@ import Home from '../components/home/Home.vue'
 import Register from '../components/home/Register.vue'
 import Login from '../components/home/Login.vue'
 import Dashboard from '../components/dashboard/Dashboard.vue'
-import UserProfile from '../components/home/UserProfile.vue'
+import EditUserProfile from '../components/home/EditUserProfile.vue'
 
 Vue.use(VueRouter)
 
@@ -36,7 +36,7 @@ const routes = [
   {
     path: '/profile',
     name: 'profile',
-    component: UserProfile,
+    component: EditUserProfile,
     meta: {
       requiresAuth: true
     }

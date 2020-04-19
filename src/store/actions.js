@@ -8,7 +8,8 @@ import {
   LOGOUT_REQUEST,
   LOGOUT_SUCCESS,
   ERROR,
-  SUCCESS
+  SUCCESS,
+  SAVE_USER
 } from './mutation-types'
 
 export const userActions = {
@@ -26,7 +27,7 @@ export const userActions = {
         })
     })
   },
-  edituser ({ commit }, user) {
+  updateuser ({ commit }, user) {
     return new Promise((resolve, reject) => {
       commit(REG_REQUEST)
       axios.defaults.headers.common['Authorization'] = 'Bearrer ' + localStorage.getItem('jwt')
@@ -54,6 +55,21 @@ export const userActions = {
         .catch((err) => {
           commit(ERROR)
           localStorage.removeItem('jwt')
+          reject(err)
+        })
+    })
+  },
+  getuser ({ commit }, userId) {
+    return new Promise((resolve, reject) => {
+      commit(AUTH_REQUEST)
+      axios.defaults.headers.common['Authorization'] = 'Bearrer ' + localStorage.getItem('jwt')
+      axios({ url: `${API_BASE}/user/${userId}`, method: 'GET' })
+        .then(resp => {
+          commit(SAVE_USER, resp.data)
+          resolve(resp)
+        })
+        .catch((err) => {
+          commit(ERROR)
           reject(err)
         })
     })

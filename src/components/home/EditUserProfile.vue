@@ -4,39 +4,51 @@
       <b-form @submit.prevent="updateuser">
           <b-row>
             <b-col class="col-lg-6">
-              <b-form-group label="First Name">
-              <b-form-input v-model="user.firstname" v-validate="'required|min:3'" name="firstname"></b-form-input>
+              <b-form-group label="First Name" class="font-weight-bold">
+              <b-form-input v-model="firstname" v-validate="'required|min:3'" name="firstname"></b-form-input>
               <span v-show="errors.has('firstname')" class="text-danger">{{ errors.first('firstname') }}</span>
             </b-form-group>
             </b-col>
           </b-row>
           <b-row>
             <b-col class="col-lg-6">
-              <b-form-group label="Last Name">
-              <b-form-input v-model="user.lastname" v-validate="'required|min:3'" name="lastname"></b-form-input>
+              <b-form-group label="Last Name" class="font-weight-bold">
+              <b-form-input v-model="lastname" v-validate="'required|min:3'" name="lastname"></b-form-input>
               <span v-show="errors.has('lastname')" class="text-danger">{{ errors.first('lastname') }}</span>
               </b-form-group>
             </b-col>
           </b-row>
           <b-row>
             <b-col class="col-lg-6">
-              <b-form-group label="Password">
-              <b-form-input v-model="password" v-validate="'required'" name="password" type="password"></b-form-input>
-              <span v-show="errors.has('password')" class="text-danger">{{ errors.first('password') }}</span>
+              <b-form-group label="Email" class="font-weight-bold">
+              <span>{{ email }}</span>
               </b-form-group>
             </b-col>
           </b-row>
           <b-row>
             <b-col class="col-lg-6">
-              <b-form-group label="Confirm Password">
-              <b-form-input v-model="confirmpassword" v-validate="'required|confirmed:password'" name="confirmpassword" type="password" ref="password"></b-form-input>
-              <span v-show="errors.has('confirmpassword')" class="text-danger">{{ errors.first('confirmpassword') }}</span>
+              <b-form-group label="Last Login Date" class="font-weight-bold">
+              <span>{{ lastLoginDate }}</span>
               </b-form-group>
             </b-col>
           </b-row>
           <b-row>
             <b-col class="col-lg-6">
-              <b-button type="submit">Register</b-button>
+              <b-form-group label="Join Date" class="font-weight-bold">
+              <span>{{ createDate }}</span>
+              </b-form-group>
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col class="col-lg-6">
+              <b-form-group label="Last Updated Date" class="font-weight-bold">
+              <span>{{ updatedDate }}</span>
+              </b-form-group>
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col class="col-lg-6">
+              <b-button type="submit">Update Profile</b-button>
             </b-col>
           </b-row>
       </b-form>
@@ -50,22 +62,39 @@ export default {
     return {
       firstname: '',
       lastname: '',
-      password: '',
-      confirmpassword: ''
+      email: '',
+      lastLoginDate: '',
+      createDate: '',
+      updatedDate: ''
     }
   },
-  computed: {
-    user: function () { return this.$store.getters.user }
+  created () {
+    this.getUser()
   },
   methods: {
+    getUser: function () {
+      let userId = this.$store.getters.user.id
+      this.$store
+        .dispatch('getuser', userId)
+        .then(() => {
+          let user = this.$store.getters.user
+          this.firstname = user.firstname
+          this.lastname = user.lastname
+          this.lastLoginDate = user.last_login_date
+          this.createDate = user.create_date
+          this.updatedDate = user.update_date
+          this.email = user.email
+        })
+        .catch(err => console.log(err))
+    },
     updateuser: function (e) {
       this.$validator.validateAll().then((result) => {
         if (result) {
           let firstname = e.target.elements.firstname.value
           let lastname = e.target.elements.lastname.value
-          let password = e.target.elements.password.value
+          let id = this.$store.getters.user.id
           this.$store
-            .dispatch('edituser', { firstname, lastname, password })
+            .dispatch('updateuser', { id, firstname, lastname })
             .then(() => this.$router.push('/dashboard'))
             .catch(err => console.log(err))
         }

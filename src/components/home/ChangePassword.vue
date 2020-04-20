@@ -1,5 +1,6 @@
 <template>
     <b-container>
+      <b-alert :show="showalert" dismissible :variant="variant">{{this.message}}</b-alert>
       <h1>Change Password</h1>
       <b-form @submit.prevent="changepassword">
           <b-row>
@@ -42,7 +43,10 @@ export default {
     return {
       password: '',
       newpassword: '',
-      confirmpassword: ''
+      confirmpassword: '',
+      showalert: false,
+      variant: 'info',
+      message: ''
     }
   },
   methods: {
@@ -50,12 +54,19 @@ export default {
       this.$validator.validateAll().then((result) => {
         if (result) {
           let password = e.target.elements.password.value
-          let new_password = e.target.elements.newpassword.value
+          let newpassword = e.target.elements.newpassword.value
           let id = this.$store.getters.user.id
           this.$store
-            .dispatch('changepassword', { id, password, new_password })
-            .then(() => this.$router.push('/dashboard'))
-            .catch(err => console.log(err))
+            .dispatch('changepassword', { id, password, newpassword })
+            .then(resp => {
+              this.$router.push('/dashboard')
+            })
+            .catch(err => {
+              this.showalert = true
+              this.variant = 'danger'
+              this.message = err.response.data.message
+              console.log(err)
+            })
         }
       })
     }

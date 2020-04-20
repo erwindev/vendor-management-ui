@@ -1,5 +1,6 @@
 <template>
     <b-container>
+      <b-alert :show="showalert" dismissible :variant="variant">{{this.message}}</b-alert>
       <h1>Edit Profile</h1>
       <b-form @submit.prevent="updateuser">
           <b-row>
@@ -65,7 +66,10 @@ export default {
       email: '',
       lastLoginDate: '',
       createDate: '',
-      updatedDate: ''
+      updatedDate: '',
+      showalert: false,
+      variant: 'info',
+      message: ''
     }
   },
   created () {
@@ -96,7 +100,12 @@ export default {
           this.$store
             .dispatch('updateuser', { id, firstname, lastname })
             .then(() => this.$router.push('/dashboard'))
-            .catch(err => console.log(err))
+            .catch(err => {
+              this.showalert = true
+              this.variant = 'danger'
+              this.message = err.response.data.message
+              console.log(err)
+            })
         }
       })
     }

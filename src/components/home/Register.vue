@@ -1,5 +1,6 @@
 <template>
     <b-container>
+      <b-alert :show="showalert" dismissible :variant="variant">{{this.message}}</b-alert>
       <h1>Register</h1>
       <b-form @submit.prevent="register">
           <b-row>
@@ -60,7 +61,10 @@ export default {
       lastname: '',
       email: '',
       password: '',
-      confirmpassword: ''
+      confirmpassword: '',
+      showalert: false,
+      variant: 'info',
+      message: ''
     }
   },
   methods: {
@@ -74,7 +78,12 @@ export default {
           this.$store
             .dispatch('register', { firstname, lastname, email, password })
             .then(() => this.$router.push('/login'))
-            .catch(err => console.log(err))
+            .catch(err => {
+              this.showalert = true
+              this.variant = 'danger'
+              this.message = err.response.data.message
+              console.log(err)
+            })
         }
       })
     }

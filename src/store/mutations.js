@@ -6,7 +6,8 @@ import {
   LOGOUT_SUCCESS,
   SAVE_USER,
   ERROR,
-  SUCCESS
+  SUCCESS,
+  CHANGEPASSWORD_REQUEST
 } from './mutation-types'
 
 export const userMutations = {
@@ -28,6 +29,9 @@ export const userMutations = {
     state.status = null
     state.token = null
     state.user = null
+  },
+  [CHANGEPASSWORD_REQUEST] (state) {
+    state.status = 'changepassword'
   },
   [SAVE_USER] (state, payload) {
     state.status = 'success'

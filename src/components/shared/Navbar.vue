@@ -11,7 +11,7 @@
                           {{ user.firstname + ' ' + user.lastname }}
                       </template>
                       <b-dropdown-item :to="{name: 'profile'}">Profile</b-dropdown-item>
-                      <b-dropdown-item :to="{name: 'profile'}">Change Password</b-dropdown-item>
+                      <b-dropdown-item :to="{name: 'changepassword'}">Change Password</b-dropdown-item>
                       <b-dropdown-item href="#" @click="logout()">Logout</b-dropdown-item>
                   </b-nav-item-dropdown>
             </b-navbar-nav>

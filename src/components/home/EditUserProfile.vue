@@ -4,7 +4,7 @@
       <b-form @submit.prevent="updateuser">
           <b-row>
             <b-col class="col-lg-6">
-              <b-form-group label="First Name" class="font-weight-bold">
+              <b-form-group label="First Name">
               <b-form-input v-model="firstname" v-validate="'required|min:3'" name="firstname"></b-form-input>
               <span v-show="errors.has('firstname')" class="text-danger">{{ errors.first('firstname') }}</span>
             </b-form-group>
@@ -12,7 +12,7 @@
           </b-row>
           <b-row>
             <b-col class="col-lg-6">
-              <b-form-group label="Last Name" class="font-weight-bold">
+              <b-form-group label="Last Name">
               <b-form-input v-model="lastname" v-validate="'required|min:3'" name="lastname"></b-form-input>
               <span v-show="errors.has('lastname')" class="text-danger">{{ errors.first('lastname') }}</span>
               </b-form-group>
@@ -20,28 +20,28 @@
           </b-row>
           <b-row>
             <b-col class="col-lg-6">
-              <b-form-group label="Email" class="font-weight-bold">
+              <b-form-group label="Email">
               <span>{{ email }}</span>
               </b-form-group>
             </b-col>
           </b-row>
           <b-row>
             <b-col class="col-lg-6">
-              <b-form-group label="Last Login Date" class="font-weight-bold">
+              <b-form-group label="Last Login Date">
               <span>{{ lastLoginDate }}</span>
               </b-form-group>
             </b-col>
           </b-row>
           <b-row>
             <b-col class="col-lg-6">
-              <b-form-group label="Join Date" class="font-weight-bold">
+              <b-form-group label="Join Date">
               <span>{{ createDate }}</span>
               </b-form-group>
             </b-col>
           </b-row>
           <b-row>
             <b-col class="col-lg-6">
-              <b-form-group label="Last Updated Date" class="font-weight-bold">
+              <b-form-group label="Last Updated Date">
               <span>{{ updatedDate }}</span>
               </b-form-group>
             </b-col>
@@ -82,7 +82,7 @@ export default {
           this.lastname = user.lastname
           this.lastLoginDate = user.last_login_date
           this.createDate = user.create_date
-          this.updatedDate = user.update_date
+          this.updatedDate = user.updated_date
           this.email = user.email
         })
         .catch(err => console.log(err))

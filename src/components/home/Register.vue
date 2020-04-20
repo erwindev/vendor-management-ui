@@ -29,7 +29,7 @@
           <b-row>
             <b-col class="col-lg-6">
               <b-form-group label="Password">
-              <b-form-input v-model="password" v-validate="'required'" name="password" type="password"></b-form-input>
+              <b-form-input v-model="password" v-validate="'required'" name="password" type="password" ref="password"></b-form-input>
               <span v-show="errors.has('password')" class="text-danger">{{ errors.first('password') }}</span>
               </b-form-group>
             </b-col>
@@ -37,7 +37,7 @@
           <b-row>
             <b-col class="col-lg-6">
               <b-form-group label="Confirm Password">
-              <b-form-input v-model="confirmpassword" v-validate="'required|confirmed:password'" name="confirmpassword" type="password" ref="password"></b-form-input>
+              <b-form-input v-model="confirmpassword" v-validate="'required|confirmed:password'" name="confirmpassword" type="password"></b-form-input>
               <span v-show="errors.has('confirmpassword')" class="text-danger">{{ errors.first('confirmpassword') }}</span>
               </b-form-group>
             </b-col>

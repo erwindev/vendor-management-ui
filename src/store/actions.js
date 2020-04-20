@@ -9,14 +9,15 @@ import {
   LOGOUT_SUCCESS,
   ERROR,
   SUCCESS,
-  SAVE_USER
+  SAVE_USER,
+  CHANGEPASSWORD_REQUEST
 } from './mutation-types'
 
 export const userActions = {
-  register ({ commit }, resgistration) {
+  register ({ commit }, payload) {
     return new Promise((resolve, reject) => {
       commit(REG_REQUEST)
-      axios({ url: `${API_BASE}/user/`, data: resgistration, method: 'POST' })
+      axios({ url: `${API_BASE}/user/`, data: payload, method: 'POST' })
         .then(resp => {
           commit(SUCCESS)
           resolve(resp)
@@ -27,25 +28,10 @@ export const userActions = {
         })
     })
   },
-  updateuser ({ commit }, user) {
-    return new Promise((resolve, reject) => {
-      commit(REG_REQUEST)
-      axios.defaults.headers.common['Authorization'] = 'Bearrer ' + localStorage.getItem('jwt')
-      axios({ url: `${API_BASE}/user/`, data: user, method: 'PUT' })
-        .then(resp => {
-          commit(SUCCESS)
-          resolve(resp)
-        })
-        .catch((err) => {
-          commit(ERROR)
-          reject(err)
-        })
-    })
-  },
-  login ({ commit }, user) {
+  login ({ commit }, payload) {
     return new Promise((resolve, reject) => {
       commit(AUTH_REQUEST)
-      axios({ url: `${API_BASE}/auth/login`, data: user, method: 'POST' })
+      axios({ url: `${API_BASE}/auth/login`, data: payload, method: 'POST' })
         .then(resp => {
           const token = resp.data.token
           localStorage.setItem('jwt', token)
@@ -66,6 +52,36 @@ export const userActions = {
       axios({ url: `${API_BASE}/user/${userId}`, method: 'GET' })
         .then(resp => {
           commit(SAVE_USER, resp.data)
+          resolve(resp)
+        })
+        .catch((err) => {
+          commit(ERROR)
+          reject(err)
+        })
+    })
+  },
+  updateuser ({ commit }, payload) {
+    return new Promise((resolve, reject) => {
+      commit(REG_REQUEST)
+      axios.defaults.headers.common['Authorization'] = 'Bearrer ' + localStorage.getItem('jwt')
+      axios({ url: `${API_BASE}/user/`, data: payload, method: 'PUT' })
+        .then(resp => {
+          commit(SUCCESS)
+          resolve(resp)
+        })
+        .catch((err) => {
+          commit(ERROR)
+          reject(err)
+        })
+    })
+  },
+  changepassword ({ commit }, payload) {
+    return new Promise((resolve, reject) => {
+      commit(CHANGEPASSWORD_REQUEST)
+      axios.defaults.headers.common['Authorization'] = 'Bearrer ' + localStorage.getItem('jwt')
+      axios({ url: `${API_BASE}/user/changepassword`, data: payload, method: 'POST' })
+        .then(resp => {
+          commit(SUCCESS)
           resolve(resp)
         })
         .catch((err) => {

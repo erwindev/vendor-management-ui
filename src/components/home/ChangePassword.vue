@@ -1,8 +1,8 @@
 <template>
     <b-container>
-      <b-alert :show="showalert" dismissible :variant="variant">{{this.message}}</b-alert>
+      <b-alert v-model="showalert" dismissible :variant="variant">{{this.message}}</b-alert>
       <h1>Change Password</h1>
-      <b-form @submit.prevent="changepassword">
+      <b-form name="changPasswordForm" @submit.prevent="changepassword">
           <b-row>
             <b-col class="col-lg-6">
               <b-form-group label="Password">
@@ -38,7 +38,7 @@
 
 <script>
 export default {
-  name: 'EditUserProfile',
+  name: 'ChangePassword',
   data () {
     return {
       password: '',
@@ -59,7 +59,10 @@ export default {
           this.$store
             .dispatch('changepassword', { id, password, newpassword })
             .then(resp => {
-              this.$router.push('/dashboard')
+              this.resetForm(this.$validator)
+              this.showalert = true
+              this.variant = 'info'
+              this.message = 'Password successfully changed.'
             })
             .catch(err => {
               this.showalert = true
@@ -69,7 +72,14 @@ export default {
             })
         }
       })
+    },
+    resetForm (validator) {
+      this.password = null
+      this.newpassword = null
+      this.confirmpassword = null
+      validator.reset()
     }
+
   }
 }
 </script>

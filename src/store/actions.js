@@ -33,9 +33,9 @@ export const userActions = {
       commit(AUTH_REQUEST)
       axios({ url: `${API_BASE}/auth/login`, data: payload, method: 'POST' })
         .then(resp => {
-          const token = resp.data.token
+          const token = resp.data.authdata.token
           localStorage.setItem('jwt', token)
-          commit(AUTH_SUCCESS, resp.data)
+          commit(AUTH_SUCCESS, resp.data.authdata)
           resolve(resp)
         })
         .catch((err) => {
@@ -51,7 +51,7 @@ export const userActions = {
       axios.defaults.headers.common['Authorization'] = 'Bearrer ' + localStorage.getItem('jwt')
       axios({ url: `${API_BASE}/user/${userId}`, method: 'GET' })
         .then(resp => {
-          commit(SAVE_USER, resp.data)
+          commit(SAVE_USER, resp.data.user)
           resolve(resp)
         })
         .catch((err) => {
@@ -66,7 +66,7 @@ export const userActions = {
       axios.defaults.headers.common['Authorization'] = 'Bearrer ' + localStorage.getItem('jwt')
       axios({ url: `${API_BASE}/user/`, data: payload, method: 'PUT' })
         .then(resp => {
-          commit(SUCCESS)
+          commit(SAVE_USER, resp.data.user)
           resolve(resp)
         })
         .catch((err) => {

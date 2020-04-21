@@ -1,6 +1,6 @@
 <template>
      <b-container>
-       <b-alert :show="showalert" dismissible :variant="variant">{{this.message}}</b-alert>
+       <b-alert v-model="showalert" dismissible :variant="variant">{{this.message}}</b-alert>
         <h1>Login In</h1>
         <b-form @submit.prevent="login">
             <b-row>
@@ -54,7 +54,7 @@ export default {
             .catch(err => {
               this.showalert = true
               this.variant = 'danger'
-              this.message = err.response.data.message
+              this.message = err.response.data.result.message
               console.log(err)
             })
         }

@@ -1,6 +1,6 @@
 <template>
     <b-container>
-      <b-alert :show="showalert" dismissible :variant="variant">{{this.message}}</b-alert>
+      <b-alert v-model="showalert" dismissible :variant="variant">{{this.message}}</b-alert>
       <h1>Register</h1>
       <b-form @submit.prevent="register">
           <b-row>

@@ -1,6 +1,6 @@
 <template>
     <b-container>
-      <b-alert :show="showalert" dismissible :variant="variant">{{this.message}}</b-alert>
+      <b-alert v-model="showalert" dismissible :variant="variant">{{this.message}}</b-alert>
       <h1>Edit Profile</h1>
       <b-form @submit.prevent="updateuser">
           <b-row>
@@ -99,7 +99,9 @@ export default {
           let id = this.$store.getters.user.id
           this.$store
             .dispatch('updateuser', { id, firstname, lastname })
-            .then(() => this.$router.push('/dashboard'))
+            .then(() => {
+              this.$router.push('/dashboard')
+            })
             .catch(err => {
               this.showalert = true
               this.variant = 'danger'

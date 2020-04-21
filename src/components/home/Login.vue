@@ -21,7 +21,7 @@
             </b-row>
             <b-row>
               <b-col class="col-lg-6">
-                <b-button type="submit">Login</b-button>
+                <b-button variant="primary" type="submit">Login</b-button>
               </b-col>
             </b-row>
         </b-form>

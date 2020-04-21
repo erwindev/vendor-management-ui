@@ -49,7 +49,7 @@
           </b-row>
           <b-row>
             <b-col class="col-lg-6">
-              <b-button type="submit">Update Profile</b-button>
+              <b-button variant="primary" type="submit">Update Profile</b-button>
             </b-col>
           </b-row>
       </b-form>

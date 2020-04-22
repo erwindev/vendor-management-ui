@@ -13,7 +13,8 @@ export default new Vuex.Store({
   state: {
     status: '',
     token: localStorage.getItem('jwt') || '',
-    user: {}
+    user: {},
+    dashboadScreen: ''
   },
   plugins: [createPersistedState()],
   mutations: Object.assign({}, userMutations),

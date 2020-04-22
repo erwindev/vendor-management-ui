@@ -1,5 +1,5 @@
 <template>
-    <b-container>
+    <b-container class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
       <b-alert v-model="showalert" dismissible :variant="variant">{{this.message}}</b-alert>
       <h1>Change Password</h1>
       <b-form name="changPasswordForm" @submit.prevent="changepassword">

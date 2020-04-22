@@ -7,7 +7,8 @@ import {
   SAVE_USER,
   ERROR,
   SUCCESS,
-  CHANGEPASSWORD_REQUEST
+  CHANGEPASSWORD_REQUEST,
+  DASHBOARD
 } from './mutation-types'
 
 export const userMutations = {
@@ -42,5 +43,8 @@ export const userMutations = {
   },
   [ERROR] (state) {
     state.status = 'error'
+  },
+  [DASHBOARD] (state, screen) {
+    state.dashboadScreen = screen
   }
 }

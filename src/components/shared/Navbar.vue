@@ -4,14 +4,14 @@
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
         <b-collapse id="nav-collapse" is-nav>
             <b-navbar-nav class="ml-auto">
-                <b-nav-item v-if="!isLoggedIn" :to="{name: 'login'}">Login</b-nav-item>
-                  <b-nav-item v-if="isLoggedIn" :to="{name: 'dashboard'}">Dashboard</b-nav-item>
+                <b-nav-item v-if="!isLoggedIn" v-on:click="showLogin()">Login</b-nav-item>
+                  <b-nav-item v-if="isLoggedIn" v-on:click="showDasboard('dashboardlanding')">Dashboard</b-nav-item>
                   <b-nav-item-dropdown v-if="isLoggedIn" right>
                       <template v-slot:button-content>
-                          {{ user.firstname + ' ' + user.lastname }}
+                          Account
                       </template>
-                      <b-dropdown-item :to="{name: 'profile'}">Profile</b-dropdown-item>
-                      <b-dropdown-item :to="{name: 'changepassword'}">Change Password</b-dropdown-item>
+                      <b-dropdown-item v-on:click="showDasboard('edituserprofile')">Profile</b-dropdown-item>
+                      <b-dropdown-item v-on:click="showDasboard('changePassword')">Change Password</b-dropdown-item>
                       <b-dropdown-item href="#" @click="logout()">Logout</b-dropdown-item>
                   </b-nav-item-dropdown>
             </b-navbar-nav>
@@ -20,6 +20,10 @@
 </template>
 
 <script>
+import {
+  DASHBOARD
+} from '../../store/mutation-types'
+
 export default {
   name: 'vmsui-navbar',
   computed: {
@@ -27,6 +31,14 @@ export default {
     user: function () { return this.$store.getters.user }
   },
   methods: {
+    showLogin: function () {
+      this.$router.push({name: 'login'})
+    },
+    showDasboard: function (screenName) {
+      this.$store.commit(DASHBOARD, screenName)
+      let name = 'dashboard'
+      if (this.$route.name !== name) { this.$router.push({name: name, params: { screenName: screenName }}) }
+    },
     logout: function () {
       this.$store
         .dispatch('logout')

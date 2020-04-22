@@ -1,81 +1,44 @@
 <template>
-    <b-container>
-        <software-form
-          @add:software="addSoftware"
-        />
-
-        <software-interactive-table
-          :softwareList = "softwareList"
-        />
-    </b-container>
+      <div class="row">
+        <dashboard-left-nav/>
+        <dashboard-landing v-if="showDashboardLanding"/>
+        <edit-user-profile v-if="showProfile"/>
+        <change-password v-if="showPassword"/>
+      </div>
 </template>
 
 <script>
-import axios from 'axios'
-import SoftwareTable from './SoftwareTable.vue'
-import SoftwareInteractiveTable from './SoftwareInteractiveTable.vue'
-import SoftwareForm from './SoftwareForm.vue'
+import DashboardLeftNav from '../shared/DashboardLeftNav.vue'
+import DashboardLanding from './DashboardLanding.vue'
+import EditUserProfile from '../home/EditUserProfile.vue'
+import ChangePassword from '../home/ChangePassword.vue'
 
 export default {
-  components: {
-    SoftwareTable,
-    SoftwareInteractiveTable,
-    SoftwareForm
-  },
+  name: 'dashboard',
   data () {
     return {
-      softwareList: []
+      showDashboardLanding: true,
+      showProfile: false,
+      showPassword: false
     }
+  },
+  components: {
+    DashboardLeftNav,
+    DashboardLanding,
+    EditUserProfile,
+    ChangePassword
   },
   mounted () {
-    this.getSofwtareList()
+    this.showDashboardLanding = this.$store.getters.showDashboardLanding
+    this.showProfile = this.$store.getters.showProfile
+    this.showPassword = this.$store.getters.showPassword
   },
-  methods: {
-
-    getSofwtareList () {
-      axios.get('http://localhost:3000/softwareList')
-        .then(response => {
-          const data = response.data
-          this.softwareList = data
-        }, (error) => {
-          console.error(error)
-        })
-    },
-
-    addSoftware (software) {
-      axios.post('http://localhost:3000/softwareList', software)
-        .then(response => {
-          const data = response.data
-          this.softwareList = [...this.softwareList, data]
-        }, (error) => {
-          console.error(error)
-        })
-    },
-
-    editSoftware (id, updatedSoftware) {
-      axios.put(`http://localhost:3000/softwareList/${id}`, updatedSoftware)
-        .then(response => {
-          const data = response.data
-          this.softwareList = this.softwareList.map(software =>
-            software.id === id ? data : software)
-        }, (error) => {
-          console.error(error)
-        })
-    },
-
-    deleteSoftware (id) {
-      axios.delete(`http://localhost:3000/softwareList/${id}`)
-        .then(response => {
-          this.softwareList = this.softwareList.filter(
-            software => software.id !== id)
-        }, (error) => {
-          console.error(error)
-        })
-    }
+  computed: {
+    isLoggedIn: function () { return this.$store.getters.isLoggedIn },
+    user: function () { return this.$store.getters.user }
   }
 }
 </script>
 
 <style scoped>
-
 </style>

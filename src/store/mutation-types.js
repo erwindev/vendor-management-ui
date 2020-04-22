@@ -7,6 +7,5 @@ export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
 export const CHANGEPASSWORD_REQUEST = 'CHANGEPASSWORD_REQUEST'
 
 export const SAVE_USER = 'SAVE_USER'
-export const DASHBOARD = 'DASHBOARD'
 export const ERROR = 'ERROR'
 export const SUCCESS = 'SUCCESS'

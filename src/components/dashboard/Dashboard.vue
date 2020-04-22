@@ -8,6 +8,7 @@
 </template>
 
 <script>
+import { eventBus } from '../../main'
 import DashboardLeftNav from '../shared/DashboardLeftNav.vue'
 import DashboardLanding from './DashboardLanding.vue'
 import EditUserProfile from '../home/EditUserProfile.vue'
@@ -17,7 +18,7 @@ export default {
   name: 'dashboard',
   data () {
     return {
-      showDashboardLanding: true,
+      showDashboardLanding: false,
       showEditUserProfile: false,
       showChangePassword: false
     }
@@ -28,21 +29,20 @@ export default {
     EditUserProfile,
     ChangePassword
   },
-  mounted () {
-    this.showChangePassword = false
-    this.showDashboardLanding = false
-    this.showChangePassword = false
-    if (this.$store.getters.currentDashboardScreen === 'dashboardlanding') {
-      this.showDashboardLanding = true
-    }
-    if (this.$store.getters.currentDashboardScreen === 'edituserprofile') {
-      this.showEditUserProfile = true
-    }
-    if (this.$store.getters.currentDashboardScreen === 'changePassword') {
-      this.showChangePassword = true
-    }
-    this.showProfile = this.$store.getters.showProfile
-    this.showPassword = this.$store.getters.showPassword
+  created () {
+    eventBus.$on('showDashboardScreen', (screenName) => {
+      this.showChangePassword = false
+      this.showEditUserProfile = false
+      this.showChangePassword = false
+
+      if (screenName === 'dasbboardLanding') {
+        this.showDashboardLanding = true
+      } else if (screenName === 'editUserProfile') {
+        this.showEditUserProfile = true
+      } else if (screenName === 'changePassword') {
+        this.showChangePassword = true
+      }
+    })
   },
   computed: {
     isLoggedIn: function () { return this.$store.getters.isLoggedIn },

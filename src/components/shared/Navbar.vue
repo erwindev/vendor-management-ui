@@ -5,13 +5,13 @@
         <b-collapse id="nav-collapse" is-nav>
             <b-navbar-nav class="ml-auto">
                 <b-nav-item v-if="!isLoggedIn" v-on:click="showLogin()">Login</b-nav-item>
-                  <b-nav-item v-if="isLoggedIn" v-on:click="showDasboard('dashboardlanding')">Dashboard</b-nav-item>
+                  <b-nav-item v-if="isLoggedIn" v-on:click="showDashboard('dasbboardLanding')">Dashboard</b-nav-item>
                   <b-nav-item-dropdown v-if="isLoggedIn" right>
                       <template v-slot:button-content>
                           Account
                       </template>
-                      <b-dropdown-item v-on:click="showDasboard('edituserprofile')">Profile</b-dropdown-item>
-                      <b-dropdown-item v-on:click="showDasboard('changePassword')">Change Password</b-dropdown-item>
+                      <b-dropdown-item v-on:click="showDashboard('editUserProfile')">Profile</b-dropdown-item>
+                      <b-dropdown-item v-on:click="showDashboard('changePassword')">Change Password</b-dropdown-item>
                       <b-dropdown-item href="#" @click="logout()">Logout</b-dropdown-item>
                   </b-nav-item-dropdown>
             </b-navbar-nav>
@@ -20,9 +20,7 @@
 </template>
 
 <script>
-import {
-  DASHBOARD
-} from '../../store/mutation-types'
+import { eventBus } from '../../main'
 
 export default {
   name: 'vmsui-navbar',
@@ -34,10 +32,10 @@ export default {
     showLogin: function () {
       this.$router.push({name: 'login'})
     },
-    showDasboard: function (screenName) {
-      this.$store.commit(DASHBOARD, screenName)
+    showDashboard: function (screen) {
+      eventBus.$emit('showDashboardScreen', screen)
       let name = 'dashboard'
-      if (this.$route.name !== name) { this.$router.push({name: name, params: { screenName: screenName }}) }
+      if (this.$route.name !== name) { this.$router.push({name: name}) }
     },
     logout: function () {
       this.$store

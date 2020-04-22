@@ -33,7 +33,7 @@ export default {
       this.$router.push({name: 'login'})
     },
     showDashboard: function (screen) {
-      eventBus.$emit('showDashboardScreen', screen)
+      eventBus.$emit('showDashboardScreen', screen) //event processor in Dashboard.vue
       let name = 'dashboard'
       if (this.$route.name !== name) { this.$router.push({name: name}) }
     },

@@ -31,7 +31,7 @@ export default {
   },
   created () {
     eventBus.$on('showDashboardScreen', (screenName) => {
-      this.showChangePassword = false
+      this.showDashboardLanding = false
       this.showEditUserProfile = false
       this.showChangePassword = false
 

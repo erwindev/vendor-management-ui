@@ -7,6 +7,7 @@ import Login from '../components/home/Login.vue'
 import Dashboard from '../components/dashboard/Dashboard.vue'
 import EditUserProfile from '../components/home/EditUserProfile.vue'
 import ChangePassword from '../components/home/ChangePassword.vue'
+import VendorAdd from '../components/dashboard/vendor/VendorAdd.vue'
 
 Vue.use(VueRouter)
 
@@ -46,6 +47,14 @@ const routes = [
     path: '/changepassword',
     name: 'changepassword',
     component: ChangePassword,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/vendor/add',
+    name: 'vendoradd',
+    component: VendorAdd,
     meta: {
       requiresAuth: true
     }

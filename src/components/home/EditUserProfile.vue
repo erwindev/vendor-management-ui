@@ -100,7 +100,9 @@ export default {
           this.$store
             .dispatch('updateuser', { id, firstname, lastname })
             .then(() => {
-              this.$router.push('/dashboard')
+              this.showalert = true
+              this.variant = 'info'
+              this.message = 'User successfully updated.'
             })
             .catch(err => {
               this.showalert = true

@@ -1,23 +1,69 @@
 <template>
     <b-nav class="col-md-2 d-none d-md-block bg-light sidebar">
         <b-container class="sidebar-sticky">
-            <b-nav vertical>
-                <h4>Welcome, {{ user.firstname }}!</h4>
-                <b-nav-item href="#link-1">Vendors</b-nav-item>
-                <b-nav-item href="#link-2">Products</b-nav-item>
-                <b-nav-item href="#link-1">Users</b-nav-item>
-                <b-nav-item href="#link-2">Reports</b-nav-item>
-            </b-nav>
+          <b-card no-body>
+            <b-card-header>
+              <b-link href="#" v-b-toggle.accordion-1>Vendor</b-link>
+            </b-card-header>
+            <b-collapse id="accordion-1" accordion="my-accordion1">
+              <b-card-body>
+                <b-card-text>
+                  <b-link v-on:click="showDashboard('vendorAdd')">Add</b-link>
+                </b-card-text>
+                <b-card-text>
+                  <b-link href="#">List</b-link>
+                </b-card-text>
+              </b-card-body>
+            </b-collapse>
+          </b-card>
+          <b-card no-body>
+            <b-card-header>
+              <b-link href="#" v-b-toggle.accordion-2>Product</b-link>
+            </b-card-header>
+            <b-collapse id="accordion-2" accordion="my-accordion2">
+              <b-card-body>
+                <b-card-text>
+                  <b-link href="#">Add</b-link>
+                </b-card-text>
+                <b-card-text>
+                  <b-link href="#">List</b-link>
+                </b-card-text>
+              </b-card-body>
+            </b-collapse>
+          </b-card>
+          <b-card no-body>
+            <b-card-header>
+              <b-link href="#" v-b-toggle.accordion-3>User</b-link>
+            </b-card-header>
+            <b-collapse id="accordion-3" accordion="my-accordion3">
+              <b-card-body>
+                <b-card-text>
+                  <b-link href="#">Add</b-link>
+                </b-card-text>
+                <b-card-text>
+                  <b-link href="#">List</b-link>
+                </b-card-text>
+              </b-card-body>
+            </b-collapse>
+          </b-card>
         </b-container>
     </b-nav>
 </template>
 
 <script>
+import { eventBus } from '../../main'
 export default {
   name: 'dashboard-leftnav',
   computed: {
     isLoggedIn: function () { return this.$store.getters.isLoggedIn },
     user: function () { return this.$store.getters.user }
+  },
+  methods: {
+    showDashboard: function (screen) {
+      eventBus.$emit('showDashboardScreen', screen) // event processor in Dashboard.vue
+      let name = 'dashboard'
+      if (this.$route.name !== name) { this.$router.push({name: name}) }
+    }
   }
 }
 </script>

@@ -1,8 +1,8 @@
 <template>
-  <b-container fluid="true">
+  <b-container class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
     <h1>Vendor List</h1>
     <b-row>
-      <b-col class="col-lg-8">
+      <b-col lg="4" class="my-2">
         <b-form-group
           label="Filter"
           label-cols-sm="3"
@@ -26,7 +26,6 @@
       </b-col>
     </b-row>
 
-    <!-- Main table element -->
     <b-table
       show-empty
       small
@@ -55,12 +54,11 @@
           v-model="currentPage"
           :total-rows="totalRows"
           :per-page="perPage"
-          align="fill"
-          size="sm"
-          class="col-lg-12"
+          align="center"
         ></b-pagination>
       </b-col>
     </b-row>
+
   </b-container>
 </template>
 

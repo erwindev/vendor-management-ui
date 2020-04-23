@@ -11,7 +11,7 @@
                   <b-link v-on:click="showDashboard('vendorAdd')">Add</b-link>
                 </b-card-text>
                 <b-card-text>
-                  <b-link href="#">List</b-link>
+                  <b-link v-on:click="showDashboard('vendorList')">List</b-link>
                 </b-card-text>
               </b-card-body>
             </b-collapse>
@@ -54,13 +54,30 @@
 import { eventBus } from '../../main'
 export default {
   name: 'dashboard-leftnav',
+  data () {
+    return {
+      vendorList: []
+    }
+  },
   computed: {
     isLoggedIn: function () { return this.$store.getters.isLoggedIn },
     user: function () { return this.$store.getters.user }
   },
   methods: {
     showDashboard: function (screen) {
-      eventBus.$emit('showDashboardScreen', screen) // event processor in Dashboard.vue
+      if (screen === 'vendorList') {
+        this.$store
+          .dispatch('getAllVendor')
+          .then(resp => {
+            this.vendorList = resp.data.vendorlist
+            eventBus.$emit('showDashboardScreen', screen, this.vendorList) // event processor in Dashboard.vue
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      } else {
+        eventBus.$emit('showDashboardScreen', screen, null) // event processor in Dashboard.vue
+      }
       let name = 'dashboard'
       if (this.$route.name !== name) { this.$router.push({name: name}) }
     }

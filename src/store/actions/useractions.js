@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {API_BASE} from '../config'
+import {API_BASE} from '../../config'
 
 import {
   AUTH_REQUEST,
@@ -11,7 +11,7 @@ import {
   SUCCESS,
   SAVE_USER,
   CHANGEPASSWORD_REQUEST
-} from './mutation-types'
+} from '../mutation-types'
 
 export const userActions = {
   register ({ commit }, payload) {

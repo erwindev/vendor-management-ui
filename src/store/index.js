@@ -3,7 +3,8 @@ import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 
 import {userMutations} from './mutations'
-import {userActions} from './actions'
+import {userActions} from './actions/useractions'
+import {vendorActions} from './actions/vendoractions'
 import {userInfoGetters} from './getters'
 
 Vue.use(Vuex)
@@ -18,6 +19,6 @@ export default new Vuex.Store({
   },
   plugins: [createPersistedState()],
   mutations: Object.assign({}, userMutations),
-  actions: Object.assign({}, userActions),
+  actions: Object.assign({}, userActions, vendorActions),
   getters: Object.assign({}, userInfoGetters)
 })

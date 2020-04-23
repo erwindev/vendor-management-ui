@@ -5,6 +5,7 @@
         <edit-user-profile v-if="showEditUserProfile"/>
         <change-password v-if="showChangePassword"/>
         <vendor-add v-if="showVendorAdd"/>
+        <vendor-list :vendorList = "vendorList" v-if="showVendorList"/>
       </div>
 </template>
 
@@ -15,6 +16,7 @@ import DashboardLanding from './DashboardLanding.vue'
 import EditUserProfile from '../home/EditUserProfile.vue'
 import ChangePassword from '../home/ChangePassword.vue'
 import VendorAdd from './vendor/VendorAdd.vue'
+import VendorList from './vendor/VendorList.vue'
 
 export default {
   name: 'dashboard',
@@ -23,7 +25,9 @@ export default {
       showDashboardLanding: true,
       showEditUserProfile: false,
       showChangePassword: false,
-      showAddVendor: false
+      showVendorAdd: false,
+      showVendorList: false,
+      vendorList: []
     }
   },
   components: {
@@ -31,14 +35,16 @@ export default {
     DashboardLanding,
     EditUserProfile,
     ChangePassword,
-    VendorAdd
+    VendorAdd,
+    VendorList
   },
   created () {
-    eventBus.$on('showDashboardScreen', (screenName) => {
+    eventBus.$on('showDashboardScreen', (screenName, payload) => {
       this.showDashboardLanding = false
       this.showEditUserProfile = false
       this.showChangePassword = false
       this.showVendorAdd = false
+      this.showVendorList = false
 
       if (screenName === 'dasbboardLanding') {
         this.showDashboardLanding = true
@@ -48,6 +54,9 @@ export default {
         this.showChangePassword = true
       } else if (screenName === 'vendorAdd') {
         this.showVendorAdd = true
+      } else if (screenName === 'vendorList') {
+        this.showVendorList = true
+        this.vendorList = payload
       }
     })
   },

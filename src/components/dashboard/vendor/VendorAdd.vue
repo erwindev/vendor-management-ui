@@ -2,7 +2,7 @@
     <b-container class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
       <b-alert v-model="showalert" dismissible :variant="variant">{{this.message}}</b-alert>
       <h1>Add Vendor</h1>
-      <b-form @submit.prevent="addvendor">
+      <b-form @submit.prevent="addVendor">
           <b-row>
             <b-col class="col-lg-6">
               <b-form-group label="Vednor Name">
@@ -41,17 +41,19 @@ export default {
     }
   },
   methods: {
-    addvendor: function (e) {
+    addVendor: function (e) {
       this.$validator.validateAll().then((result) => {
         if (result) {
           let name = e.target.elements.name.value
           let website = e.target.elements.website.value
+          let email = this.$store.getters.user.email
           this.$store
-            .dispatch('addvendor', { name, website })
+            .dispatch('addVendor', { name, website, user_by: email, status: 'active' })
             .then(() => {
               this.showalert = true
               this.variant = 'info'
               this.message = 'Vendor successfully added.'
+              this.resetForm(this.$validator)
             })
             .catch(err => {
               this.showalert = true
@@ -61,6 +63,11 @@ export default {
             })
         }
       })
+    },
+    resetForm (validator) {
+      this.name = null
+      this.website = null
+      validator.reset()
     }
   }
 }

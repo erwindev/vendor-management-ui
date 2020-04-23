@@ -10,7 +10,9 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 Vue.use(BootstrapVue)
-Vue.use(VeeValidate)
+Vue.use(VeeValidate, {
+  fieldsBagName: 'vvFields'
+})
 Vue.config.productionTip = false
 
 export const eventBus = new Vue()

@@ -77,7 +77,7 @@ export default {
         { key: 'name', label: 'Vendor name', sortable: true, sortDirection: 'desc' },
         { key: 'website', label: 'Website', sortable: true, class: 'text-left' },
         { key: 'status', label: 'Status', sortable: true, class: 'text-left' },
-        { key: 'created_date', label: 'Created Date', sortable: true, class: 'text-left' },
+        { key: 'create_date', label: 'Created Date', sortable: true, class: 'text-left' },
         { key: 'user_by', label: 'Added By', sortable: true, class: 'text-left' }
       ],
       totalRows: 1,

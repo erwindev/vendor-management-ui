@@ -1,5 +1,6 @@
 <template>
   <b-container class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+    <b-alert v-model="showalert" dismissible :variant="variant">{{this.message}}</b-alert>
     <h1>Vendor List</h1>
     <b-row>
       <b-col lg="4" class="my-2">
@@ -46,6 +47,15 @@
           </ul>
         </b-card>
       </template>
+
+      <template v-slot:cell(actions)="row">
+        <b-button size="sm" @click="getVendorProfile(row.item.id)" class="mr-1">
+          Edit
+        </b-button>
+        <b-button size="sm" @click="deleteVendorProfile(row.item.id)" class="mr-1">
+          Delete
+        </b-button>
+      </template>
     </b-table>
 
     <b-row>
@@ -63,6 +73,7 @@
 </template>
 
 <script>
+import { eventBus } from '../../../main'
 export default {
   name: 'VendorList',
   props: {
@@ -76,7 +87,8 @@ export default {
         { key: 'website', label: 'Website', sortable: true, class: 'text-left' },
         { key: 'status', label: 'Status', sortable: true, class: 'text-left' },
         { key: 'create_date', label: 'Created Date', sortable: true, class: 'text-left' },
-        { key: 'user_by', label: 'Added By', sortable: true, class: 'text-left' }
+        { key: 'user_by', label: 'Added By', sortable: true, class: 'text-left' },
+        { key: 'actions', label: 'Actions' }
       ],
       totalRows: 1,
       currentPage: 1,
@@ -86,7 +98,10 @@ export default {
       sortDesc: false,
       sortDirection: 'asc',
       filter: null,
-      filterOn: []
+      filterOn: [],
+      showalert: false,
+      variant: 'info',
+      message: ''
     }
   },
   mounted () {
@@ -98,6 +113,38 @@ export default {
       // Trigger pagination to update the number of buttons/pages due to filtering
       this.totalRows = filteredItems.length
       this.currentPage = 1
+    },
+    getVendorProfile: function (id) {
+      this.$store
+        .dispatch('getVendor', id)
+        .then(resp => {
+          let vendor = resp.data
+          eventBus.$emit('showDashboardScreen', 'vendorProfile', vendor) // event processor in Dashboard.vue
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    deleteVendorProfile: function (id) {
+      this.$store
+        .dispatch('updateVendor', {id, status: 'Inactive'})
+        .then(resp => {
+          this.showalert = true
+          this.variant = 'info'
+          this.message = 'Vendor successfully deleted.'
+          for (var i = 0; i < this.items.length; i++) {
+            if (this.items[i].id === id) {
+              this.items[i].status = 'Inactive'
+              break
+            }
+          }
+        })
+        .catch(err => {
+          this.showalert = true
+          this.variant = 'danger'
+          this.message = err.response.data.message
+          console.log(err)
+        })
     }
   }
 }

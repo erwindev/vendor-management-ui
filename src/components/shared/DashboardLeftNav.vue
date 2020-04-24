@@ -66,20 +66,23 @@ export default {
   methods: {
     showDashboard: function (screen) {
       if (screen === 'vendorList') {
-        this.$store
-          .dispatch('getAllVendor')
-          .then(resp => {
-            this.vendorList = resp.data.vendorlist
-            eventBus.$emit('showDashboardScreen', screen, this.vendorList) // event processor in Dashboard.vue
-          })
-          .catch(err => {
-            console.log(err)
-          })
+        this.processVendorListScreen(screen)
       } else {
         eventBus.$emit('showDashboardScreen', screen, null) // event processor in Dashboard.vue
       }
       let name = 'dashboard'
       if (this.$route.name !== name) { this.$router.push({name: name}) }
+    },
+    processVendorListScreen: function (screen) {
+      this.$store
+        .dispatch('getAllVendor')
+        .then(resp => {
+          this.vendorList = resp.data.vendorlist
+          eventBus.$emit('showDashboardScreen', screen, this.vendorList) // event processor in Dashboard.vue
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   }
 }

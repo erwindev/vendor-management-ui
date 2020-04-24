@@ -7,6 +7,7 @@
         <vendor-add v-if="showVendorAdd"/>
         <vendor-list :vendorList = "vendorList" v-if="showVendorList"/>
         <vendor-profile :vendor = "vendor" v-if="showVendorProfile"/>
+        <contact-add :contactId = "vendor.id" :contactTypeId = "1000" v-if="showContactAdd"/>
       </div>
 </template>
 
@@ -19,6 +20,7 @@ import ChangePassword from './user/ChangePassword.vue'
 import VendorAdd from './vendor/VendorAdd.vue'
 import VendorList from './vendor/VendorList.vue'
 import VendorProfile from './vendor/VendorProfile.vue'
+import ContactAdd from './contact/ContactAdd.vue'
 
 export default {
   name: 'dashboard',
@@ -30,6 +32,7 @@ export default {
       showVendorAdd: false,
       showVendorList: false,
       showVendorProfile: false,
+      showContactAdd: false,
       vendorList: [],
       vendor: []
     }
@@ -41,7 +44,8 @@ export default {
     ChangePassword,
     VendorAdd,
     VendorList,
-    VendorProfile
+    VendorProfile,
+    ContactAdd
   },
   created () {
     eventBus.$on('showDashboardScreen', (screenName, payload) => {
@@ -51,6 +55,7 @@ export default {
       this.showVendorAdd = false
       this.showVendorList = false
       this.showVendorProfile = false
+      this.showContactAdd = false
 
       if (screenName === 'dasbboardLanding') {
         this.showDashboardLanding = true
@@ -65,6 +70,9 @@ export default {
         this.vendorList = payload
       } else if (screenName === 'vendorProfile') {
         this.showVendorProfile = true
+        this.vendor = payload
+      } else if (screenName === 'contactAdd') {
+        this.showContactAdd = true
         this.vendor = payload
       }
     })

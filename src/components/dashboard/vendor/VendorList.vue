@@ -55,6 +55,9 @@
         <b-button size="sm" @click="deleteVendorProfile(row.item.id)" class="mr-1">
           Delete
         </b-button>
+        <b-button size="sm" @click="addVendorContact(row.item.id)" class="mr-1">
+          Add Contact
+        </b-button>
       </template>
     </b-table>
 
@@ -113,6 +116,17 @@ export default {
       // Trigger pagination to update the number of buttons/pages due to filtering
       this.totalRows = filteredItems.length
       this.currentPage = 1
+    },
+    addVendorContact: function (id) {
+      this.$store
+        .dispatch('getVendor', id)
+        .then(resp => {
+          let vendor = resp.data
+          eventBus.$emit('showDashboardScreen', 'contactAdd', vendor) // event processor in Dashboard.vue
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
     getVendorProfile: function (id) {
       this.$store

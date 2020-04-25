@@ -6,7 +6,7 @@
           <b-row>
             <b-col class="col-lg-6">
               <b-form-group label="Vednor Name">
-              <b-form-input v-model="vendor.name" v-validate="'required|min:3'" name="name"></b-form-input>
+              <b-form-input v-model="vendor.vendor.name" v-validate="'required|min:3'" name="name"></b-form-input>
               <span v-show="errors.has('name')" class="text-danger">{{ errors.first('name') }}</span>
             </b-form-group>
             </b-col>
@@ -14,7 +14,7 @@
           <b-row>
             <b-col class="col-lg-6">
               <b-form-group label="Website">
-              <b-form-input v-model="vendor.website" v-validate="'required|min:3'" name="website"></b-form-input>
+              <b-form-input v-model="vendor.vendor.website" v-validate="'required|min:3'" name="website"></b-form-input>
               <span v-show="errors.has('website')" class="text-danger">{{ errors.first('website') }}</span>
               </b-form-group>
             </b-col>
@@ -22,7 +22,7 @@
           <b-row>
             <b-col class="col-lg-6">
               <b-form-group label="Status">
-                <b-form-select v-model="vendor.status" name="status">
+                <b-form-select v-model="vendor.vendor.status" name="status">
                     <option v-for="(selectOption, indexOpt) in select.options"
                         :key="indexOpt"
                         :value="selectOption"
@@ -37,37 +37,67 @@
           <b-row>
             <b-col class="col-lg-6">
               <b-form-group label="Added by">
-              <span>{{ vendor.user_by }}</span>
+              <span>{{ vendor.vendor.user_by }}</span>
               </b-form-group>
             </b-col>
           </b-row>
           <b-row>
             <b-col class="col-lg-6">
               <b-form-group label="Created Date">
-              <span>{{ vendor.create_date }}</span>
+              <span>{{ vendor.vendor.create_date }}</span>
               </b-form-group>
             </b-col>
           </b-row>
           <b-row>
             <b-col class="col-lg-6">
               <b-form-group label="Last Updated Date">
-              <span>{{ vendor.updated_date }}</span>
+              <span>{{ vendor.vendor.updated_date }}</span>
               </b-form-group>
             </b-col>
           </b-row>
           <b-row>
             <b-col class="col-lg-6">
-              <input type="hidden" v-model="vendor.id" name="id">
+              <input type="hidden" v-model="vendor.vendor.id" name="id">
               <b-button variant="primary" type="submit">Update</b-button>
             </b-col>
           </b-row>
       </b-form>
+      <br>
+      <br>
+      <b-container class="float-left">
+        <b-card no-body>
+        <b-tabs justified>
+            <b-tab title="Contacts">
+              <br>
+              <contact-list :contacts = "vendor.contacts" v-if="true"/>
+              <b-button size="sm" variant="primary" @click="addVendorContact(vendor.vendor.id)">
+                  Add Vendor Contact
+              </b-button>
+            </b-tab>
+            <b-tab title="Products">
+              Product list goes here
+            </b-tab>
+            <b-tab title="Attachment">
+              Attachment list goes here
+            </b-tab>
+            <b-tab title="Notes">
+              Notes list goes here
+            </b-tab>
+          </b-tabs>
+        </b-card>
+      </b-container>
     </b-container>
 </template>
 
 <script>
+import { eventBus } from '../../../main'
+import ContactList from '../contact/ContactList'
+
 export default {
   name: 'VendorUpdate',
+  components: {
+    ContactList
+  },
   props: {
     vendor: {}
   },
@@ -116,6 +146,9 @@ export default {
             })
         }
       })
+    },
+    addVendorContact: function (id) {
+      eventBus.$emit('showDashboardScreen', 'vendorContactAdd', id) // event processor in Dashboard.vue
     }
   }
 }

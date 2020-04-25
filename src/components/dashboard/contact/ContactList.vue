@@ -1,7 +1,5 @@
 <template>
-  <b-container class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-    <b-alert v-model="showalert" dismissible :variant="variant">{{this.message}}</b-alert>
-    <h1>Vendor List</h1>
+  <b-container>
     <b-row>
       <b-col lg="4" class="my-2">
         <b-form-group
@@ -49,16 +47,11 @@
       </template>
 
       <template v-slot:cell(actions)="row">
-        <b-button size="sm" @click="getVendorProfile(row.item.id, row.item.status)" class="mr-1">
-          Profile
+        <b-button size="sm" @click="getContact(row.item.id)" class="mr-1">
+          Edit
         </b-button>
-        <b-button size="sm" @click="toggleVendorProfile(row.item.id, row.item.status)" class="mr-1">
-          <template v-if="row.item.status=='Active'">
-          Deactivate
-          </template>
-          <template v-if="row.item.status=='Inactive'">
-          Activate
-          </template>
+        <b-button size="sm" @click="deleteContact(row.item.id)" class="mr-1">
+          Delete
         </b-button>
       </template>
     </b-table>
@@ -80,25 +73,28 @@
 <script>
 import { eventBus } from '../../../main'
 export default {
-  name: 'VendorList',
+  name: 'ContactList',
   props: {
-    vendorList: Array
+    contacts: Array
   },
   data () {
     return {
-      items: this.vendorList,
+      items: this.contacts,
       fields: [
-        { key: 'name', label: 'Vendor name', sortable: true, sortDirection: 'desc' },
-        { key: 'website', label: 'Website', sortable: true, class: 'text-left' },
-        { key: 'status', label: 'Status', sortable: true, class: 'text-left' },
-        { key: 'create_date', label: 'Created Date', sortable: true, class: 'text-left' },
-        { key: 'user_by', label: 'Added By', sortable: true, class: 'text-left' },
+        { key: 'name', label: 'Contact Name', sortable: false, sortDirection: 'desc' },
+        { key: 'email', label: 'Email', sortable: false, class: 'text-left' },
+        { key: 'phone1', label: 'Phone 1', sortable: false, class: 'text-left' },
+        { key: 'street1', label: 'Created Date', sortable: false, class: 'text-left' },
+        { key: 'city', label: 'City', sortable: false, class: 'text-left' },
+        { key: 'state', label: 'State', sortable: false, class: 'text-left' },
+        { key: 'zipcode', label: 'Zip Code', sortable: false, class: 'text-left' },
+        { key: 'country', label: 'Country', sortable: false, class: 'text-left' },
         { key: 'actions', label: 'Actions' }
       ],
       totalRows: 1,
       currentPage: 1,
-      perPage: 20,
-      pageOptions: [20, 40, 60],
+      perPage: 5,
+      pageOptions: [5, 10, 15],
       sortBy: '',
       sortDesc: false,
       sortDirection: 'asc',
@@ -106,9 +102,7 @@ export default {
       filterOn: [],
       showalert: false,
       variant: 'info',
-      message: '',
-      contacts: [],
-      vendor: {}
+      message: ''
     }
   },
   mounted () {
@@ -121,32 +115,27 @@ export default {
       this.totalRows = filteredItems.length
       this.currentPage = 1
     },
-    getVendorProfile: function (id) {
+    getContact: function (id) {
       this.$store
-        .dispatch('getVendor', id)
+        .dispatch('getContact', id)
         .then(resp => {
-          this.vendor = resp.data
-          eventBus.$emit('showDashboardScreen', 'vendorProfile', this.vendor) // event processor in Dashboard.vue
+          let vendor = resp.data
+          eventBus.$emit('showDashboardScreen', 'getContact', vendor) // event processor in Dashboard.vue
         })
         .catch(err => {
           console.log(err)
         })
     },
-    toggleVendorProfile: function (id, status) {
-      if (status === 'Active') {
-        status = 'Inactive'
-      } else {
-        status = 'Active'
-      }
+    deleteContact: function (id) {
       this.$store
-        .dispatch('updateVendor', {id, status})
+        .dispatch('updateContact', {id, status: 'Inactive'})
         .then(resp => {
-          // this.showalert = true
-          // this.variant = 'info'
-          // this.message = 'Vendor successfully updated.'
+          this.showalert = true
+          this.variant = 'info'
+          this.message = 'Contact successfully deleted.'
           for (var i = 0; i < this.items.length; i++) {
             if (this.items[i].id === id) {
-              this.items[i].status = status
+              this.items[i].status = 'Inactive'
               break
             }
           }

@@ -1,7 +1,9 @@
 <template>
     <b-container class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
       <b-alert v-model="showalert" dismissible :variant="variant">{{this.message}}</b-alert>
-      <h1>Add Contact</h1>
+      <h1>
+        {{ title }}
+      </h1>
       <b-form name="changPasswordForm" @submit.prevent="changepassword">
           <b-row>
             <b-col class="col-lg-6">
@@ -97,7 +99,8 @@ export default {
   name: 'ContactAdd',
   props: {
     contactId: '',
-    contactTypeId: ''
+    contactTypeId: '',
+    title: ''
   },
   data () {
     return {

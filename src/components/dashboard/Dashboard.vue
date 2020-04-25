@@ -7,7 +7,7 @@
         <vendor-add v-if="showVendorAdd"/>
         <vendor-list :vendorList = "vendorList" v-if="showVendorList"/>
         <vendor-profile :vendor = "vendor" v-if="showVendorProfile"/>
-        <contact-add :contactId = "vendor.id" :contactTypeId = "1000" v-if="showContactAdd"/>
+        <contact-add :contactId = "contactId" :contactTypeId = "contactTypeId" :title="contactAddTitle" v-if="showContactAdd"/>
       </div>
 </template>
 
@@ -33,8 +33,11 @@ export default {
       showVendorList: false,
       showVendorProfile: false,
       showContactAdd: false,
+      contactId: '',
+      contactTypeId: '',
+      contactAddTitle: '',
       vendorList: [],
-      vendor: []
+      vendor: {}
     }
   },
   components: {
@@ -71,9 +74,11 @@ export default {
       } else if (screenName === 'vendorProfile') {
         this.showVendorProfile = true
         this.vendor = payload
-      } else if (screenName === 'contactAdd') {
+      } else if (screenName === 'vendorContactAdd') {
         this.showContactAdd = true
-        this.vendor = payload
+        this.contactId = payload.contactId
+        this.contactTypeId = '1000'
+        this.contactAddTitle = 'Vendor Contact'
       }
     })
   },

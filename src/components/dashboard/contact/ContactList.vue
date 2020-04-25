@@ -47,7 +47,7 @@
       </template>
 
       <template v-slot:cell(actions)="row">
-        <b-button size="sm" @click="getContact(row.item.id)" class="mr-1">
+        <b-button size="sm" @click="editContact(row.item)" class="mr-1">
           Edit
         </b-button>
         <b-button size="sm" @click="deleteContact(row.item.id)" class="mr-1">
@@ -75,7 +75,8 @@ import { eventBus } from '../../../main'
 export default {
   name: 'ContactList',
   props: {
-    contacts: Array
+    contacts: Array,
+    name: ''
   },
   data () {
     return {
@@ -115,20 +116,12 @@ export default {
       this.totalRows = filteredItems.length
       this.currentPage = 1
     },
-    getContact: function (id) {
-      this.$store
-        .dispatch('getContact', id)
-        .then(resp => {
-          let vendor = resp.data
-          eventBus.$emit('showDashboardScreen', 'getContact', vendor) // event processor in Dashboard.vue
-        })
-        .catch(err => {
-          console.log(err)
-        })
+    editContact: function (contact) {
+      eventBus.$emit('showDashboardScreen', 'vendorContactEdit', {contact: contact, name: this.name}) // event processor in Dashboard.vue
     },
     deleteContact: function (id) {
       this.$store
-        .dispatch('updateContact', {id, status: 'Inactive'})
+        .dispatch('updateContact', {id: id, status: 'Inactive'})
         .then(resp => {
           this.showalert = true
           this.variant = 'info'

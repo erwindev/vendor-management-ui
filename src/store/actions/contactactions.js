@@ -35,10 +35,10 @@ export const contactActions = {
         })
     })
   },
-  getContact ({ commit }, contactId) {
+  getContact ({ commit }, id) {
     return new Promise((resolve, reject) => {
       axios.defaults.headers.common['Authorization'] = 'Bearrer ' + localStorage.getItem('jwt')
-      axios({ url: `${API_BASE}/contact/${contactId}`, method: 'GET' })
+      axios({ url: `${API_BASE}/contact/${id}`, method: 'GET' })
         .then(resp => {
           commit(SUCCESS)
           resolve(resp)
@@ -49,10 +49,10 @@ export const contactActions = {
         })
     })
   },
-  updateContact ({ commit }, contactId, payload) {
+  updateContact ({ commit }, payload) {
     return new Promise((resolve, reject) => {
       axios.defaults.headers.common['Authorization'] = 'Bearrer ' + localStorage.getItem('jwt')
-      axios({ url: `${API_BASE}/contact/${contactId}`, data: payload, method: 'PUT' })
+      axios({ url: `${API_BASE}/contact/`, data: payload, method: 'PUT' })
         .then(resp => {
           commit(SUCCESS)
           resolve(resp)

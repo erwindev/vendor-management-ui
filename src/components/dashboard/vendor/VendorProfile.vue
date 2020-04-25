@@ -69,7 +69,7 @@
         <b-tabs justified>
             <b-tab title="Contacts">
               <br>
-              <contact-list :contacts = "vendor.contacts" v-if="true"/>
+              <contact-list :contacts = "vendor.contacts" :name = "vendor.vendor.name" v-if="true"/>
               <b-button size="sm" variant="primary" @click="addVendorContact(vendor.vendor.id, vendor.vendor.name)">
                   Add Vendor Contact
               </b-button>
@@ -147,8 +147,8 @@ export default {
         }
       })
     },
-    addVendorContact: function (id, name) {
-      eventBus.$emit('showDashboardScreen', 'vendorContactAdd', {id: id, name: name}) // event processor in Dashboard.vue
+    addVendorContact: function (contactId, name) {
+      eventBus.$emit('showDashboardScreen', 'vendorContactAdd', {contactId: contactId, name: name}) // event processor in Dashboard.vue
     }
   }
 }

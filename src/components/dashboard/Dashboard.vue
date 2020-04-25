@@ -7,7 +7,10 @@
         <vendor-add v-if="showVendorAdd"/>
         <vendor-list :vendorList = "vendorList" v-if="showVendorList"/>
         <vendor-profile :vendor = "vendor" v-if="showVendorProfile"/>
-        <contact-add :contactId = "contactId" :contactTypeId = "contactTypeId" :title= "contactAddTitle" v-if="showContactAdd"/>
+        <contact-form :contactdata = "contact"
+                      :methodtype = "contactMethod"
+                      :title= "contactTitle"
+                      v-if="showContactForm"/>
       </div>
 </template>
 
@@ -20,7 +23,7 @@ import ChangePassword from './user/ChangePassword.vue'
 import VendorAdd from './vendor/VendorAdd.vue'
 import VendorList from './vendor/VendorList.vue'
 import VendorProfile from './vendor/VendorProfile.vue'
-import ContactAdd from './contact/ContactAdd.vue'
+import ContactForm from './contact/ContactForm.vue'
 
 export default {
   name: 'dashboard',
@@ -32,10 +35,25 @@ export default {
       showVendorAdd: false,
       showVendorList: false,
       showVendorProfile: false,
-      showContactAdd: false,
-      contactId: '',
-      contactTypeId: '',
-      contactAddTitle: '',
+      showContactForm: false,
+      contact: {
+        id: '',
+        contact_id: '',
+        contact_type_id: '',
+        name: '',
+        email: '',
+        phone1: '',
+        phone2: '',
+        street1: '',
+        street2: '',
+        city: '',
+        state: '',
+        zipcode: '',
+        country: '',
+        status: ''
+      },
+      contactTitle: '',
+      contactMethod: '',
       vendorList: [],
       vendor: {}
     }
@@ -48,7 +66,7 @@ export default {
     VendorAdd,
     VendorList,
     VendorProfile,
-    ContactAdd
+    ContactForm
   },
   created () {
     eventBus.$on('showDashboardScreen', (screenName, payload) => {
@@ -58,7 +76,7 @@ export default {
       this.showVendorAdd = false
       this.showVendorList = false
       this.showVendorProfile = false
-      this.showContactAdd = false
+      this.showContactForm = false
 
       if (screenName === 'dasbboardLanding') {
         this.showDashboardLanding = true
@@ -75,10 +93,18 @@ export default {
         this.showVendorProfile = true
         this.vendor = payload
       } else if (screenName === 'vendorContactAdd') {
-        this.showContactAdd = true
-        this.contactId = payload.id
-        this.contactTypeId = '1000'
-        this.contactAddTitle = 'Vendor Contact - ' + payload.name
+        this.showContactForm = true
+        this.contact = {}
+        this.contact.contact_id = payload.contactId
+        this.contact.contact_type_id = '1000'
+        this.contactTitle = 'Vendor Contact - ' + payload.name
+        this.contactMethod = 'add'
+      } else if (screenName === 'vendorContactEdit') {
+        this.showContactForm = true
+        this.contact = {}
+        this.contact = payload.contact
+        this.contactTitle = 'Vendor Contact - ' + payload.name
+        this.contactMethod = 'edit'
       }
     })
   },

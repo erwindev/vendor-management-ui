@@ -1,5 +1,6 @@
 <template>
     <b-container class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+      <b-container v-if="isEdit" fluid>
       <b-alert v-model="showalert" dismissible :variant="variant">{{this.message}}</b-alert>
       <h1>Edit Profile</h1>
       <b-form @submit.prevent="updateuser">
@@ -21,38 +22,55 @@
           </b-row>
           <b-row>
             <b-col class="col-lg-6">
-              <b-form-group label="Email">
-              <span>{{ email }}</span>
-              </b-form-group>
-            </b-col>
-          </b-row>
-          <b-row>
-            <b-col class="col-lg-6">
-              <b-form-group label="Last Login Date">
-              <span>{{ lastLoginDate }}</span>
-              </b-form-group>
-            </b-col>
-          </b-row>
-          <b-row>
-            <b-col class="col-lg-6">
-              <b-form-group label="Join Date">
-              <span>{{ createDate }}</span>
-              </b-form-group>
-            </b-col>
-          </b-row>
-          <b-row>
-            <b-col class="col-lg-6">
-              <b-form-group label="Last Updated Date">
-              <span>{{ updatedDate }}</span>
-              </b-form-group>
-            </b-col>
-          </b-row>
-          <b-row>
-            <b-col class="col-lg-6">
-              <b-button variant="primary" type="submit">Update Profile</b-button>
+              <b-button variant="primary" type="submit">Save</b-button>
+              <b-button @click="editForm(false)" variant="primary">Cancel</b-button>
             </b-col>
           </b-row>
       </b-form>
+      </b-container>
+      <b-container v-if="!isEdit" fluid>
+          <b-row>
+            <b-col class="col-lg-6">
+              <span> First Name: </span>
+              <span>{{ firstname }}</span>
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col class="col-lg-6">
+              <span> Last Name: </span>
+              <span>{{ lastname }}</span>
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col class="col-lg-6">
+              <span> Email: </span>
+              <span>{{ email }}</span>
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col class="col-lg-6">
+              <span> Last Login Date: </span>
+              <span>{{ lastLoginDate }}</span>
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col class="col-lg-6">
+              <span> Create Date: </span>
+              <span>{{ createDate }}</span>
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col class="col-lg-6">
+              <span> Updated Date: </span>
+              <span>{{ updatedDate }}</span>
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col class="col-lg-6">
+              <b-button @click="editForm(true)" variant="primary">Edit</b-button>
+            </b-col>
+          </b-row>
+      </b-container>
     </b-container>
 </template>
 
@@ -69,7 +87,8 @@ export default {
       updatedDate: '',
       showalert: false,
       variant: 'info',
-      message: ''
+      message: '',
+      isEdit: false
     }
   },
   created () {
@@ -112,6 +131,9 @@ export default {
             })
         }
       })
+    },
+    editForm: function (bool) {
+      this.isEdit = bool
     }
   }
 }

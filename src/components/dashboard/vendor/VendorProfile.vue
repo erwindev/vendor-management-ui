@@ -119,7 +119,8 @@ export default {
           'Inactive',
           'Active'
         ]
-      }
+      },
+      isEdit: false
     }
   },
   methods: {

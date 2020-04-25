@@ -7,7 +7,7 @@
         <vendor-add v-if="showVendorAdd"/>
         <vendor-list :vendorList = "vendorList" v-if="showVendorList"/>
         <vendor-profile :vendor = "vendor" v-if="showVendorProfile"/>
-        <contact-add :contactId = "contactId" :contactTypeId = "contactTypeId" :title="contactAddTitle" v-if="showContactAdd"/>
+        <contact-add :contactId = "contactId" :contactTypeId = "contactTypeId" :title= "contactAddTitle" v-if="showContactAdd"/>
       </div>
 </template>
 
@@ -76,9 +76,9 @@ export default {
         this.vendor = payload
       } else if (screenName === 'vendorContactAdd') {
         this.showContactAdd = true
-        this.contactId = payload.contactId
+        this.contactId = payload.id
         this.contactTypeId = '1000'
-        this.contactAddTitle = 'Vendor Contact'
+        this.contactAddTitle = 'Vendor Contact - ' + payload.name
       }
     })
   },

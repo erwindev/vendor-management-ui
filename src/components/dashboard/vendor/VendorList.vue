@@ -49,7 +49,7 @@
       </template>
 
       <template v-slot:cell(actions)="row">
-        <b-button size="sm" @click="getVendorProfile(row.item.id, row.item.status)" class="mr-1">
+        <b-button size="sm" @click="getVendorProfile(row.item.id)" class="mr-1">
           Profile
         </b-button>
         <b-button size="sm" @click="toggleVendorProfile(row.item.id, row.item.status)" class="mr-1">

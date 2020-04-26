@@ -29,47 +29,15 @@
       </b-form>
       </b-container>
       <b-container v-if="!isEdit" fluid>
-          <b-row>
-            <b-col class="col-lg-6">
-              <span> First Name: </span>
-              <span>{{ firstname }}</span>
-            </b-col>
-          </b-row>
-          <b-row>
-            <b-col class="col-lg-6">
-              <span> Last Name: </span>
-              <span>{{ lastname }}</span>
-            </b-col>
-          </b-row>
-          <b-row>
-            <b-col class="col-lg-6">
-              <span> Email: </span>
-              <span>{{ email }}</span>
-            </b-col>
-          </b-row>
-          <b-row>
-            <b-col class="col-lg-6">
-              <span> Last Login Date: </span>
-              <span>{{ lastLoginDate }}</span>
-            </b-col>
-          </b-row>
-          <b-row>
-            <b-col class="col-lg-6">
-              <span> Create Date: </span>
-              <span>{{ createDate }}</span>
-            </b-col>
-          </b-row>
-          <b-row>
-            <b-col class="col-lg-6">
-              <span> Updated Date: </span>
-              <span>{{ updatedDate }}</span>
-            </b-col>
-          </b-row>
-          <b-row>
-            <b-col class="col-lg-6">
-              <b-button @click="editForm(true)" variant="primary">Edit</b-button>
-            </b-col>
-          </b-row>
+        <h3>{{ firstname  }} {{ lastname  }}</h3>
+        <ul>
+          <li>{{ firstname  }} {{ lastname  }}</li>
+          <li>{{ email }}</li>
+          <li>{{ lastLoginDate }}</li>
+          <li>{{ createDate }}</li>
+          <li>{{ updatedDate }}</li>
+        </ul>
+        <p><b-button @click="editForm(true)" variant="primary">Edit</b-button></p>
       </b-container>
     </b-container>
 </template>

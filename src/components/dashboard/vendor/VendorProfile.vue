@@ -13,14 +13,6 @@
           </b-row>
           <b-row>
             <b-col class="col-lg-6">
-              <b-form-group label="Website">
-              <b-form-input v-model="vendor.vendor.website" v-validate="'required|min:3'" name="website"></b-form-input>
-              <span v-show="errors.has('website')" class="text-danger">{{ errors.first('website') }}</span>
-              </b-form-group>
-            </b-col>
-          </b-row>
-          <b-row>
-            <b-col class="col-lg-6">
               <b-form-group label="Status">
                 <b-form-select v-model="vendor.vendor.status" name="status">
                     <option v-for="(selectOption, indexOpt) in select.options"
@@ -105,7 +97,6 @@ export default {
     return {
       id: '',
       name: '',
-      website: '',
       createDate: '',
       status: '',
       userBy: '',
@@ -124,16 +115,15 @@ export default {
     }
   },
   methods: {
-    updateVendor: function (e) {
+    updateVendor: function () {
       this.$validator.validateAll().then((result) => {
         if (result) {
-          let name = e.target.elements.name.value
-          let website = e.target.elements.website.value
-          let status = e.target.elements.status.value
+          let name = this.nam
+          let status = this.status
           let email = this.$store.getters.user.email
-          let id = e.target.elements.id.value
+          let id = this.id
           this.$store
-            .dispatch('updateVendor', { id, name, website, user_by: email, status })
+            .dispatch('updateVendor', { id, name, user_by: email, status })
             .then(() => {
               this.showalert = true
               this.variant = 'info'

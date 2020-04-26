@@ -13,14 +13,6 @@
           </b-row>
           <b-row>
             <b-col class="col-lg-6">
-              <b-form-group label="Website">
-              <b-form-input v-model="website" v-validate="'required|min:3'" name="website"></b-form-input>
-              <span v-show="errors.has('website')" class="text-danger">{{ errors.first('website') }}</span>
-              </b-form-group>
-            </b-col>
-          </b-row>
-          <b-row>
-            <b-col class="col-lg-6">
               <b-button variant="primary" type="submit">Add</b-button>
             </b-col>
           </b-row>
@@ -34,21 +26,19 @@ export default {
   data () {
     return {
       name: '',
-      website: '',
       showalert: false,
       variant: 'info',
       message: ''
     }
   },
   methods: {
-    addVendor: function (e) {
+    addVendor: function () {
       this.$validator.validateAll().then((result) => {
         if (result) {
-          let name = e.target.elements.name.value
-          let website = e.target.elements.website.value
+          let name = this.name
           let email = this.$store.getters.user.email
           this.$store
-            .dispatch('addVendor', { name, website, user_by: email, status: 'active' })
+            .dispatch('addVendor', { name, user_by: email, status: 'Active' })
             .then(() => {
               this.showalert = true
               this.variant = 'info'

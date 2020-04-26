@@ -6,7 +6,7 @@
         <change-password v-if="showChangePassword"/>
         <vendor-add v-if="showVendorAdd"/>
         <vendor-list :vendorList = "vendorList" v-if="showVendorList"/>
-        <vendor-profile :vendor = "vendor" v-if="showVendorProfile"/>
+        <vendor-profile :vendorData = "vendor" v-if="showVendorProfile"/>
         <contact-form :contactdata = "contact"
                       :methodtype = "contactMethod"
                       :title= "contactTitle"

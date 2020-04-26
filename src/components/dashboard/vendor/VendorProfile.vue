@@ -111,16 +111,11 @@ export default {
     ContactList
   },
   props: {
-    vendor: {}
+    vendorData: {}
   },
   data () {
     return {
-      id: '',
-      name: '',
-      createDate: '',
-      status: '',
-      userBy: '',
-      updatedDate: '',
+      vendor: {},
       showalert: false,
       variant: 'info',
       message: '',
@@ -134,14 +129,25 @@ export default {
       isEdit: false
     }
   },
+  mounted: function () {
+    this.vendor = {
+      id: '',
+      name: '',
+      create_date: '',
+      status: '',
+      user_by: '',
+      updated_date: ''
+    }
+    this.vendor = this.vendorData
+  },
   methods: {
-    updateVendor: function () {
+    updateVendor: function (e) {
       this.$validator.validateAll().then((result) => {
         if (result) {
-          let name = this.nam
-          let status = this.status
+          let name = this.vendor.vendor.name
+          let status = this.vendor.vendor.status
           let email = this.$store.getters.user.email
-          let id = this.id
+          let id = this.vendor.vendor.id
           this.$store
             .dispatch('updateVendor', { id, name, user_by: email, status })
             .then(() => {

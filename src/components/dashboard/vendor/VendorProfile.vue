@@ -3,6 +3,7 @@
       <b-container v-if="isEdit" fluid>
       <b-alert v-model="showalert" dismissible :variant="variant">{{this.message}}</b-alert>
       <h1>Vendor Profile</h1>
+      <b-card>
       <b-form @submit.prevent="updateVendor">
           <b-row>
             <b-col class="col-lg-6">
@@ -35,6 +36,7 @@
             </b-col>
           </b-row>
       </b-form>
+      </b-card>
       </b-container>
       <b-container v-if="!isEdit" fluid>
         <h1>Vendor Profile</h1>
@@ -49,7 +51,7 @@
       </b-container>
       <br>
       <br>
-      <b-container class="float-left">
+      <b-container fluid>
         <b-card no-body>
         <b-tabs justified>
             <b-tab title="Contacts">

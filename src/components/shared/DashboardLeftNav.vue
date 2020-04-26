@@ -1,11 +1,11 @@
 <template>
-    <b-nav class="col-md-2 d-none d-md-block bg-light sidebar">
+    <b-nav class="col-md-2 sidebar">
         <b-container class="sidebar-sticky">
           <b-card no-body>
             <b-card-header>
               <b-link href="#" v-b-toggle.accordion-1>Vendor</b-link>
             </b-card-header>
-            <b-collapse id="accordion-1" accordion="my-accordion1">
+            <b-collapse id="accordion-1" accordion="my-accordion1" visible="true">
               <b-card-body>
                 <b-card-text>
                   <b-link v-on:click="showDashboard('vendorAdd')">Add</b-link>
@@ -20,7 +20,7 @@
             <b-card-header>
               <b-link href="#" v-b-toggle.accordion-2>Product</b-link>
             </b-card-header>
-            <b-collapse id="accordion-2" accordion="my-accordion2">
+            <b-collapse id="accordion-2" accordion="my-accordion2" visible="true">
               <b-card-body>
                 <b-card-text>
                   <b-link href="#">Add</b-link>
@@ -35,7 +35,7 @@
             <b-card-header>
               <b-link href="#" v-b-toggle.accordion-3>User</b-link>
             </b-card-header>
-            <b-collapse id="accordion-3" accordion="my-accordion3">
+            <b-collapse id="accordion-3" accordion="my-accordion3" visible="true">
               <b-card-body>
                 <b-card-text>
                   <b-link href="#">Add</b-link>
@@ -89,5 +89,43 @@ export default {
 </script>
 
 <style scoped>
+/* Remove default bullets */
+ul, #myUL {
+  list-style-type: none;
+}
 
+/* Remove margins and padding from the parent ul */
+#myUL {
+  margin: 0;
+  padding: 0;
+}
+
+/* Style the caret/arrow */
+.caret {
+  cursor: pointer;
+  user-select: none; /* Prevent text selection */
+}
+
+/* Create the caret/arrow with a unicode, and style it */
+.caret::before {
+  content: "\25B6";
+  color: black;
+  display: inline-block;
+  margin-right: 6px;
+}
+
+/* Rotate the caret/arrow icon when clicked on (using JavaScript) */
+.caret-down::before {
+  transform: rotate(90deg);
+}
+
+/* Hide the nested list */
+.nested {
+  display: none;
+}
+
+/* Show the nested list when the user clicks on the caret/arrow (with JavaScript) */
+.active {
+  display: block;
+}
 </style>

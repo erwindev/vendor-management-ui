@@ -2,7 +2,7 @@
     <b-container class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
       <b-container v-if="isEdit" fluid>
       <b-alert v-model="showalert" dismissible :variant="variant">{{this.message}}</b-alert>
-      <h1>Edit Profile</h1>
+      <h1>Profile</h1>
       <b-form @submit.prevent="updateuser">
           <b-row>
             <b-col class="col-lg-6">
@@ -29,15 +29,18 @@
       </b-form>
       </b-container>
       <b-container v-if="!isEdit" fluid>
-        <h3>{{ firstname  }} {{ lastname  }}</h3>
-        <ul>
-          <li>{{ firstname  }} {{ lastname  }}</li>
-          <li>{{ email }}</li>
-          <li>{{ lastLoginDate }}</li>
-          <li>{{ createDate }}</li>
-          <li>{{ updatedDate }}</li>
-        </ul>
-        <p><b-button @click="editForm(true)" variant="primary">Edit</b-button></p>
+        <h1>Profile</h1>
+        <b-card>
+          <b-card-text>
+            {{ firstname  }} {{ lastname  }}<br>
+            {{ email }}
+          </b-card-text>
+
+          <b-card-text>Last Login Date: {{ lastLoginDate }}</b-card-text>
+          <b-card-text>Registered Date: {{ createDate }}</b-card-text>
+
+          <b-button @click="editForm(true)" variant="primary">Edit</b-button>
+        </b-card>
       </b-container>
     </b-container>
 </template>

@@ -130,7 +130,7 @@ export default {
         status = 'Inactive'
       } else {
         status = 'Active'
-      }      
+      }
       this.$store
         .dispatch('updateContact', {id, status})
         .then(resp => {

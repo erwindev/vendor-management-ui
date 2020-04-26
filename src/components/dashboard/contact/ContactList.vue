@@ -50,8 +50,13 @@
         <b-button size="sm" @click="editContact(row.item)" class="mr-1">
           Edit
         </b-button>
-        <b-button size="sm" @click="deleteContact(row.item.id)" class="mr-1">
-          Delete
+        <b-button size="sm" @click="toggleStatus(row.item.id, row.item.status)" class="mr-1">
+          <template v-if="row.item.status=='Active'">
+          Deactivate
+          </template>
+          <template v-if="row.item.status=='Inactive'">
+          Activate
+          </template>
         </b-button>
       </template>
     </b-table>
@@ -90,6 +95,7 @@ export default {
         { key: 'state', label: 'State', sortable: false, class: 'text-left' },
         { key: 'zipcode', label: 'Zip Code', sortable: false, class: 'text-left' },
         { key: 'country', label: 'Country', sortable: false, class: 'text-left' },
+        { key: 'status', label: 'Status', sortable: false, class: 'text-left' },
         { key: 'actions', label: 'Actions' }
       ],
       totalRows: 1,
@@ -119,24 +125,23 @@ export default {
     editContact: function (contact) {
       eventBus.$emit('showDashboardScreen', 'vendorContactEdit', {contact: contact, name: this.name}) // event processor in Dashboard.vue
     },
-    deleteContact: function (id) {
+    toggleStatus: function (id, status) {
+      if (status === 'Active') {
+        status = 'Inactive'
+      } else {
+        status = 'Active'
+      }      
       this.$store
-        .dispatch('updateContact', {id: id, status: 'Inactive'})
+        .dispatch('updateContact', {id, status})
         .then(resp => {
-          this.showalert = true
-          this.variant = 'info'
-          this.message = 'Contact successfully deleted.'
           for (var i = 0; i < this.items.length; i++) {
             if (this.items[i].id === id) {
-              this.items[i].status = 'Inactive'
+              this.items[i].status = status
               break
             }
           }
         })
         .catch(err => {
-          this.showalert = true
-          this.variant = 'danger'
-          this.message = err.response.data.message
           console.log(err)
         })
     }

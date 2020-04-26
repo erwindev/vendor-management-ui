@@ -48,7 +48,7 @@
           <b-row>
             <b-col class="col-lg-6">
               <b-form-group label="Street 2">
-              <b-form-input v-model="contact.street2" name="street2" ></b-form-input>
+              <b-form-input v-model="contact.street2" v-validate="'min:3'" name="street2" ></b-form-input>
               </b-form-group>
             </b-col>
           </b-row>

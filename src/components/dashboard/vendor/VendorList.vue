@@ -52,7 +52,7 @@
         <b-button size="sm" @click="getVendorProfile(row.item.id)" class="mr-1">
           Profile
         </b-button>
-        <b-button size="sm" @click="toggleVendorProfile(row.item.id, row.item.status)" class="mr-1">
+        <b-button size="sm" @click="toggleStatus(row.item.id, row.item.status)" class="mr-1">
           <template v-if="row.item.status=='Active'">
           Deactivate
           </template>
@@ -131,7 +131,7 @@ export default {
           console.log(err)
         })
     },
-    toggleVendorProfile: function (id, status) {
+    toggleStatus: function (id, status) {
       if (status === 'Active') {
         status = 'Inactive'
       } else {
@@ -140,9 +140,6 @@ export default {
       this.$store
         .dispatch('updateVendor', {id, status})
         .then(resp => {
-          // this.showalert = true
-          // this.variant = 'info'
-          // this.message = 'Vendor successfully updated.'
           for (var i = 0; i < this.items.length; i++) {
             if (this.items[i].id === id) {
               this.items[i].status = status

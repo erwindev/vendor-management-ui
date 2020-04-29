@@ -6,11 +6,11 @@ import {
   SUCCESS
 } from '../mutation-types'
 
-export const contactActions = {
-  addContact ({ commit }, payload) {
+export const productActions = {
+  addProduct ({ commit }, payload) {
     return new Promise((resolve, reject) => {
       axios.defaults.headers.common['Authorization'] = 'Bearrer ' + localStorage.getItem('jwt')
-      axios({ url: `${API_BASE}/contact`, data: payload, method: 'POST' })
+      axios({ url: `${API_BASE}/product`, data: payload, method: 'POST' })
         .then(resp => {
           commit(SUCCESS)
           resolve(resp)
@@ -21,10 +21,10 @@ export const contactActions = {
         })
     })
   },
-  getAllContact ({ commit }, contactId, contactTypeId) {
+  getAllProduct ({ commit }, vendorId) {
     return new Promise((resolve, reject) => {
       axios.defaults.headers.common['Authorization'] = 'Bearrer ' + localStorage.getItem('jwt')
-      axios({ url: `${API_BASE}/contact/${contactId}/${contactTypeId}`, method: 'GET' })
+      axios({ url: `${API_BASE}/product/vendor/${vendorId}`, method: 'GET' })
         .then(resp => {
           commit(SUCCESS)
           resolve(resp)
@@ -35,10 +35,10 @@ export const contactActions = {
         })
     })
   },
-  getContact ({ commit }, id) {
+  getProduct ({ commit }, id) {
     return new Promise((resolve, reject) => {
       axios.defaults.headers.common['Authorization'] = 'Bearrer ' + localStorage.getItem('jwt')
-      axios({ url: `${API_BASE}/contact/${id}`, method: 'GET' })
+      axios({ url: `${API_BASE}/product/${id}`, method: 'GET' })
         .then(resp => {
           commit(SUCCESS)
           resolve(resp)
@@ -49,10 +49,10 @@ export const contactActions = {
         })
     })
   },
-  updateContact ({ commit }, payload) {
+  updateProduct ({ commit }, payload) {
     return new Promise((resolve, reject) => {
       axios.defaults.headers.common['Authorization'] = 'Bearrer ' + localStorage.getItem('jwt')
-      axios({ url: `${API_BASE}/contact`, data: payload, method: 'PUT' })
+      axios({ url: `${API_BASE}/product`, data: payload, method: 'PUT' })
         .then(resp => {
           commit(SUCCESS)
           resolve(resp)

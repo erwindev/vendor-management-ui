@@ -5,7 +5,7 @@
             <b-card-header>
               <b-link href="#" v-b-toggle.accordion-1>Vendor</b-link>
             </b-card-header>
-            <b-collapse id="accordion-1" accordion="my-accordion1" visible="true">
+            <b-collapse id="accordion-1" accordion="my-accordion1" visible>
               <b-card-body>
                 <b-card-text>
                   <b-link v-on:click="showDashboard('vendorAdd')">Add</b-link>
@@ -20,7 +20,7 @@
             <b-card-header>
               <b-link href="#" v-b-toggle.accordion-2>Product</b-link>
             </b-card-header>
-            <b-collapse id="accordion-2" accordion="my-accordion2" visible="true">
+            <b-collapse id="accordion-2" accordion="my-accordion2" visible>
               <b-card-body>
                 <b-card-text>
                   <b-link href="#">Add</b-link>
@@ -35,7 +35,7 @@
             <b-card-header>
               <b-link href="#" v-b-toggle.accordion-3>User</b-link>
             </b-card-header>
-            <b-collapse id="accordion-3" accordion="my-accordion3" visible="true">
+            <b-collapse id="accordion-3" accordion="my-accordion3" visible>
               <b-card-body>
                 <b-card-text>
                   <b-link href="#">Add</b-link>

@@ -8,7 +8,7 @@
           <b-row>
             <b-col class="col-lg-6">
               <b-form-group label="Vednor Name">
-              <b-form-input v-model="vendor.vendor.name" v-validate="'required|min:3'" name="name"></b-form-input>
+              <b-form-input v-model="name" v-validate="'required|min:3'" name="name"></b-form-input>
               <span v-show="errors.has('name')" class="text-danger">{{ errors.first('name') }}</span>
             </b-form-group>
             </b-col>
@@ -16,7 +16,7 @@
           <b-row>
             <b-col class="col-lg-6">
               <b-form-group label="Status">
-                <b-form-select v-model="vendor.vendor.status" name="status">
+                <b-form-select v-model="status" name="status">
                     <option v-for="(selectOption, indexOpt) in select.options"
                         :key="indexOpt"
                         :value="selectOption"
@@ -30,7 +30,7 @@
           </b-row>
           <b-row>
             <b-col class="col-lg-6">
-              <input type="hidden" v-model="vendor.vendor.id" name="id">
+              <input type="hidden" v-model="id" name="id">
               <b-button variant="primary" type="submit">Update</b-button>
               <b-button @click="editForm(false)" variant="primary">Cancel</b-button>
             </b-col>
@@ -41,11 +41,11 @@
       <b-container v-if="!isEdit" fluid>
         <h1>Vendor Profile</h1>
         <b-card>
-          <b-card-text>Vendor Name: {{ vendor.vendor.name  }}</b-card-text>
-          <b-card-text>Status: {{ vendor.vendor.status  }}</b-card-text>
-          <b-card-text>Created Date: {{ vendor.vendor.create_date }}</b-card-text>
-          <b-card-text>Created By: {{ vendor.vendor.user_by }}</b-card-text>
-          <b-card-text>Last Updated Date: {{ vendor.vendor.updated_date }}</b-card-text>
+          <b-card-text>Vendor Name: {{ vendor.name  }}</b-card-text>
+          <b-card-text>Status: {{ vendor.status  }}</b-card-text>
+          <b-card-text>Created Date: {{ vendor.create_date }}</b-card-text>
+          <b-card-text>Created By: {{ vendor.user_by }}</b-card-text>
+          <b-card-text>Last Updated Date: {{ vendor.updated_date }}</b-card-text>
           <b-button @click="editForm(true)" variant="primary">Edit</b-button>
         </b-card>
       </b-container>
@@ -56,22 +56,17 @@
         <b-tabs justified>
             <b-tab title="Contacts">
               <br>
-              <contact-list :contacts = "vendor.contacts" :name = "vendor.vendor.name" v-if="true"/>
-              <b-button size="sm" variant="primary" @click="addVendorContact(vendor.vendor.id, vendor.vendor.name)">
+              <contact-list :contacts = "contacts" :name = "name" v-if="true"/>
+              <b-button size="sm" variant="primary" @click="addVendorContact(id, name)">
                   Add Vendor Contact
               </b-button>
             </b-tab>
             <b-tab title="Products">
-              <b-card no-body>
-                <b-card-body class="text-center">
-                  <b-card-title>Not Available</b-card-title>
-
-                  <b-card-text>
-                    Product list is not available yet
-                  </b-card-text>
-
-                </b-card-body>
-              </b-card>
+              <br>
+              <product-list :products = "products" :name = "name" v-if="true"/>
+              <b-button size="sm" variant="primary" @click="addVendorProduct(id, name)">
+                  Add Vendor Product
+              </b-button>
             </b-tab>
             <b-tab title="Attachment">
               <b-card no-body>
@@ -106,18 +101,24 @@
 <script>
 import { eventBus } from '../../../main'
 import ContactList from '../contact/ContactList'
+import ProductList from '../product/ProductList'
 
 export default {
   name: 'VendorUpdate',
   components: {
-    ContactList
+    ContactList,
+    ProductList
   },
   props: {
-    vendorData: {}
+    vendor: {},
+    contacts: Array,
+    products: Array
   },
   data () {
     return {
-      vendor: {},
+      name: '',
+      status: '',
+      id: '',
       showalert: false,
       variant: 'info',
       message: '',
@@ -132,24 +133,18 @@ export default {
     }
   },
   mounted: function () {
-    this.vendor = {
-      id: '',
-      name: '',
-      create_date: '',
-      status: '',
-      user_by: '',
-      updated_date: ''
-    }
-    this.vendor = this.vendorData
+    this.name = this.vendor.name
+    this.status = this.vendor.status
+    this.id = this.vendor.id
   },
   methods: {
     updateVendor: function (e) {
       this.$validator.validateAll().then((result) => {
         if (result) {
-          let name = this.vendor.vendor.name
-          let status = this.vendor.vendor.status
+          let name = this.name
+          let status = this.status
           let email = this.$store.getters.user.email
-          let id = this.vendor.vendor.id
+          let id = this.id
           this.$store
             .dispatch('updateVendor', { id, name, user_by: email, status })
             .then(() => {
@@ -168,6 +163,9 @@ export default {
     },
     addVendorContact: function (contactId, name) {
       eventBus.$emit('showDashboardScreen', 'vendorContactAdd', {contactId: contactId, name: name}) // event processor in Dashboard.vue
+    },
+    addVendorProduct: function (id, name) {
+      eventBus.$emit('showDashboardScreen', 'vendorProductAdd', {vendorId: id, name: name}) // event processor in Dashboard.vue
     },
     editForm: function (bool) {
       this.isEdit = bool

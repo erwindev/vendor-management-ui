@@ -6,11 +6,18 @@
         <change-password v-if="showChangePassword"/>
         <vendor-add v-if="showVendorAdd"/>
         <vendor-list :vendorList = "vendorList" v-if="showVendorList"/>
-        <vendor-profile :vendorData = "vendor" v-if="showVendorProfile"/>
+        <vendor-profile :vendor = "vendor.vendor"
+                        :contacts = "vendor.contacts"
+                        :products = "vendor.products"
+                        v-if="showVendorProfile"/>
         <contact-form :contactdata = "contact"
                       :methodtype = "contactMethod"
                       :title= "contactTitle"
                       v-if="showContactForm"/>
+        <product-form :productdata = "product"
+                      :methodtype = "productMethod"
+                      :title= "productTitle"
+                      v-if="showProductForm"/>
       </div>
 </template>
 
@@ -24,6 +31,7 @@ import VendorAdd from './vendor/VendorAdd.vue'
 import VendorList from './vendor/VendorList.vue'
 import VendorProfile from './vendor/VendorProfile.vue'
 import ContactForm from './contact/ContactForm.vue'
+import ProductForm from './product/ProductForm.vue'
 
 export default {
   name: 'dashboard',
@@ -36,6 +44,7 @@ export default {
       showVendorList: false,
       showVendorProfile: false,
       showContactForm: false,
+      showProductForm: false,
       contact: {
         id: '',
         contact_id: '',
@@ -55,7 +64,8 @@ export default {
       contactTitle: '',
       contactMethod: '',
       vendorList: [],
-      vendor: {}
+      vendor: {},
+      product: {}
     }
   },
   components: {
@@ -66,7 +76,8 @@ export default {
     VendorAdd,
     VendorList,
     VendorProfile,
-    ContactForm
+    ContactForm,
+    ProductForm
   },
   created () {
     eventBus.$on('showDashboardScreen', (screenName, payload) => {
@@ -77,6 +88,7 @@ export default {
       this.showVendorList = false
       this.showVendorProfile = false
       this.showContactForm = false
+      this.showProductForm = false
 
       if (screenName === 'dasbboardLanding') {
         this.showDashboardLanding = true
@@ -105,6 +117,17 @@ export default {
         this.contact = payload.contact
         this.contactTitle = 'Vendor Contact - ' + payload.name
         this.contactMethod = 'edit'
+      } else if (screenName === 'vendorProductAdd') {
+        this.showProductForm = true
+        this.product = {}
+        this.product.vendor_id = payload.vendorId
+        this.productTitle = 'Vendor Product - ' + payload.name
+        this.productMethod = 'add'
+      } else if (screenName === 'vendorProductEdit') {
+        this.showProductForm = true
+        this.product = payload.product
+        this.productTitle = 'Vendor Product - ' + payload.name
+        this.productMethod = 'edit'
       }
     })
   },

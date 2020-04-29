@@ -47,7 +47,7 @@
       </template>
 
       <template v-slot:cell(actions)="row">
-        <b-button size="sm" @click="editContact(row.item)" class="mr-1">
+        <b-button size="sm" @click="editProduct(row.item)" class="mr-1">
           Edit
         </b-button>
         <b-button size="sm" @click="toggleStatus(row.item.id, row.item.status)" class="mr-1">
@@ -80,21 +80,16 @@ import { eventBus } from '../../../main'
 export default {
   name: 'ContactList',
   props: {
-    contacts: Array,
+    products: Array,
     name: ''
   },
   data () {
     return {
-      items: this.contacts,
+      items: this.products,
       fields: [
-        { key: 'name', label: 'Contact Name', sortable: true, sortDirection: 'desc' },
-        { key: 'email', label: 'Email', sortable: false, class: 'text-left' },
-        { key: 'phone1', label: 'Phone 1', sortable: false, class: 'text-left' },
-        { key: 'street1', label: 'Created Date', sortable: false, class: 'text-left' },
-        { key: 'city', label: 'City', sortable: false, class: 'text-left' },
-        { key: 'state', label: 'State', sortable: false, class: 'text-left' },
-        { key: 'zipcode', label: 'Zip Code', sortable: false, class: 'text-left' },
-        { key: 'country', label: 'Country', sortable: false, class: 'text-left' },
+        { key: 'product_name', label: 'Product Name', sortable: true, sortDirection: 'desc' },
+        { key: 'user_by', label: 'User By', sortable: false, class: 'text-left' },
+        { key: 'create_date', label: 'Create Date', sortable: false, class: 'text-left' },
         { key: 'status', label: 'Status', sortable: false, class: 'text-left' },
         { key: 'actions', label: 'Actions' }
       ],
@@ -122,8 +117,8 @@ export default {
       this.totalRows = filteredItems.length
       this.currentPage = 1
     },
-    editContact: function (contact) {
-      eventBus.$emit('showDashboardScreen', 'vendorContactEdit', {contact: contact, name: this.name}) // event processor in Dashboard.vue
+    editProduct: function (product) {
+      eventBus.$emit('showDashboardScreen', 'vendorProductEdit', {product: product, name: this.name}) // event processor in Dashboard.vue
     },
     toggleStatus: function (id, status) {
       if (status === 'Active') {
@@ -132,7 +127,7 @@ export default {
         status = 'Active'
       }
       this.$store
-        .dispatch('updateContact', {id, status})
+        .dispatch('updateProduct', {id, status})
         .then(resp => {
           for (var i = 0; i < this.items.length; i++) {
             if (this.items[i].id === id) {

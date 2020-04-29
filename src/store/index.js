@@ -6,6 +6,7 @@ import {userMutations} from './mutations'
 import {userActions} from './actions/useractions'
 import {vendorActions} from './actions/vendoractions'
 import {contactActions} from './actions/contactactions'
+import {productActions} from './actions/productActions'
 import {userInfoGetters} from './getters'
 
 Vue.use(Vuex)
@@ -20,6 +21,6 @@ export default new Vuex.Store({
   },
   plugins: [createPersistedState()],
   mutations: Object.assign({}, userMutations),
-  actions: Object.assign({}, userActions, vendorActions, contactActions),
+  actions: Object.assign({}, userActions, vendorActions, contactActions, productActions),
   getters: Object.assign({}, userInfoGetters)
 })

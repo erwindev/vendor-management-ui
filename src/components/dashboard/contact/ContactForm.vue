@@ -87,7 +87,7 @@
           <b-row>
             <b-col class="col-lg-6">
               <b-button variant="primary" v-if="methodtype == 'add' && contact.contact_type_id == '1000'" type="submit" >Add Vendor Contact</b-button>
-              <b-button variant="primary" v-if="methodtype == 'edit' && contact.contact_type_id == '1000'" type="submit" >Edit Vendor Contact</b-button>
+              <b-button variant="primary" v-if="methodtype == 'edit' && contact.contact_type_id == '1000'" type="submit" >Save Vendor Contact</b-button>
               <b-button variant="primary" v-if="contact.contact_type_id == '1000'" @click="getVendorProfile(contact.contact_id)">Back to Vendor</b-button>
             </b-col>
           </b-row>
@@ -101,7 +101,7 @@ import countriesjson from './countries.json'
 import statesjson from './states.json'
 
 export default {
-  name: 'ContactAdd',
+  name: 'ContactForm',
   props: {
     title: '',
     methodtype: '',

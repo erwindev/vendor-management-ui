@@ -64,7 +64,7 @@ export const userActions = {
     return new Promise((resolve, reject) => {
       commit(REG_REQUEST)
       axios.defaults.headers.common['Authorization'] = 'Bearrer ' + localStorage.getItem('jwt')
-      axios({ url: `${API_BASE}/user/`, data: payload, method: 'PUT' })
+      axios({ url: `${API_BASE}/user`, data: payload, method: 'PUT' })
         .then(resp => {
           commit(SAVE_USER, resp.data.user)
           resolve(resp)

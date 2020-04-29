@@ -1,11 +1,11 @@
 <template>
-  <b-container>
+  <b-container fluid>
     <b-row>
       <b-col lg="4" class="my-2">
         <b-form-group
           label="Filter"
-          label-cols-sm="3"
-          label-align-sm="left"
+          label-cols-sm="2"
+          label-align-sm="right"
           label-size="sm"
           label-for="filterInput"
           class="mb-0"

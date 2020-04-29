@@ -1,11 +1,11 @@
 <template>
-  <b-container>
+  <b-container fluid>
     <b-row>
       <b-col lg="4" class="my-2">
         <b-form-group
           label="Filter"
-          label-cols-sm="3"
-          label-align-sm="left"
+          label-cols-sm="2"
+          label-align-sm="right"
           label-size="sm"
           label-for="filterInput"
           class="mb-0"
@@ -48,7 +48,7 @@
 
       <template v-slot:cell(actions)="row">
         <b-button size="sm" @click="editProduct(row.item)" class="mr-1">
-          Edit
+          Profile
         </b-button>
         <b-button size="sm" @click="toggleStatus(row.item.id, row.item.status)" class="mr-1">
           <template v-if="row.item.status=='Active'">
@@ -88,7 +88,7 @@ export default {
       items: this.products,
       fields: [
         { key: 'product_name', label: 'Product Name', sortable: true, sortDirection: 'desc' },
-        { key: 'user_by', label: 'User By', sortable: false, class: 'text-left' },
+        { key: 'user_by', label: 'Added By', sortable: false, class: 'text-left' },
         { key: 'create_date', label: 'Create Date', sortable: false, class: 'text-left' },
         { key: 'status', label: 'Status', sortable: false, class: 'text-left' },
         { key: 'actions', label: 'Actions' }

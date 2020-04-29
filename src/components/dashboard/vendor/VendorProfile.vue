@@ -51,24 +51,21 @@
       </b-container>
       <br>
       <br>
-      <b-container fluid>
-        <b-card no-body>
-        <b-tabs justified>
-            <b-tab title="Contacts">
-              <br>
+      <b-card no-body>
+        <b-tabs card>       
+            <b-tab no-body title="Contacts">
               <contact-list :contacts = "contacts" :name = "name" v-if="true"/>
               <b-button size="sm" variant="primary" @click="addVendorContact(id, name)">
                   Add Vendor Contact
               </b-button>
             </b-tab>
-            <b-tab title="Products">
-              <br>
+            <b-tab no-body title="Products">
               <product-list :products = "products" :name = "name" v-if="true"/>
               <b-button size="sm" variant="primary" @click="addVendorProduct(id, name)">
                   Add Vendor Product
               </b-button>
             </b-tab>
-            <b-tab title="Attachment">
+            <b-tab no-body title="Attachment">
               <b-card no-body>
                 <b-card-body class="text-center">
                   <b-card-title>Not Available</b-card-title>
@@ -80,7 +77,7 @@
                 </b-card-body>
               </b-card>
             </b-tab>
-            <b-tab title="Notes">
+            <b-tab no-body title="Notes">
               <b-card no-body>
                 <b-card-body class="text-center">
                   <b-card-title>Not Available</b-card-title>
@@ -94,7 +91,6 @@
             </b-tab>
           </b-tabs>
         </b-card>
-      </b-container>
     </b-container>
 </template>
 

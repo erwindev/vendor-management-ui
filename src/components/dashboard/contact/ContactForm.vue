@@ -4,7 +4,7 @@
       <h1>
         {{ title }}
       </h1>
-      <b-form name="changPasswordForm" @submit.prevent="process">
+      <b-form name="contactForm" @submit.prevent="process">
           <b-row>
             <b-col class="col-lg-6">
               <b-form-group label="Name">
@@ -162,7 +162,7 @@ export default {
               this.resetForm(this.$validator)
               this.showalert = true
               this.variant = 'info'
-              this.message = 'Vendor successfully added.'
+              this.message = 'Contact successfully added.'
             })
             .catch(err => {
               this.showalert = true
@@ -183,14 +183,13 @@ export default {
             .then(resp => {
               this.showalert = true
               this.variant = 'info'
-              this.message = 'Vendor successfully updated.'
+              this.message = 'Contact successfully updated.'
             })
             .catch(err => {
               this.showalert = true
               this.variant = 'danger'
               this.message = err.response.data.message
               console.log(err)
-              console.log(payload)
             })
         }
       })

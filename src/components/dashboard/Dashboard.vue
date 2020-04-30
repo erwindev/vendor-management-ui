@@ -9,15 +9,20 @@
         <vendor-profile :vendor = "vendor.vendor"
                         :contacts = "vendor.contacts"
                         :products = "vendor.products"
+                        :notes = "vendor.notes"
                         v-if="showVendorProfile"/>
         <contact-form :contactdata = "contact"
-                      :methodtype = "contactMethod"
-                      :title= "contactTitle"
+                      :methodtype = "method"
+                      :title= "title"
                       v-if="showContactForm"/>
         <product-form :productdata = "product"
-                      :methodtype = "productMethod"
-                      :title= "productTitle"
+                      :methodtype = "method"
+                      :title= "title"
                       v-if="showProductForm"/>
+        <notes-form :notesdata = "notes"
+                      :methodtype = "method"
+                      :title= "title"
+                      v-if="showNotesForm"/>
       </div>
 </template>
 
@@ -32,6 +37,7 @@ import VendorList from './vendor/VendorList.vue'
 import VendorProfile from './vendor/VendorProfile.vue'
 import ContactForm from './contact/ContactForm.vue'
 import ProductForm from './product/ProductForm.vue'
+import NotesForm from './notes/NotesForm.vue'
 
 export default {
   name: 'dashboard',
@@ -45,27 +51,14 @@ export default {
       showVendorProfile: false,
       showContactForm: false,
       showProductForm: false,
-      contact: {
-        id: '',
-        contact_id: '',
-        contact_type_id: '',
-        name: '',
-        email: '',
-        phone1: '',
-        phone2: '',
-        street1: '',
-        street2: '',
-        city: '',
-        state: '',
-        zipcode: '',
-        country: '',
-        status: ''
-      },
-      contactTitle: '',
-      contactMethod: '',
+      showNotesForm: false,
+      title: '',
+      method: '',
       vendorList: [],
       vendor: {},
-      product: {}
+      contact: {},
+      product: {},
+      notes: {}
     }
   },
   components: {
@@ -77,7 +70,8 @@ export default {
     VendorList,
     VendorProfile,
     ContactForm,
-    ProductForm
+    ProductForm,
+    NotesForm
   },
   created () {
     eventBus.$on('showDashboardScreen', (screenName, payload) => {
@@ -89,6 +83,7 @@ export default {
       this.showVendorProfile = false
       this.showContactForm = false
       this.showProductForm = false
+      this.showNotesForm = false
 
       if (screenName === 'dasbboardLanding') {
         this.showDashboardLanding = true
@@ -107,27 +102,34 @@ export default {
       } else if (screenName === 'vendorContactAdd') {
         this.showContactForm = true
         this.contact = {}
-        this.contact.contact_id = payload.contactId
+        this.contact.contact_id = payload.vendorId
         this.contact.contact_type_id = '1000'
-        this.contactTitle = 'Vendor Contact - ' + payload.name
-        this.contactMethod = 'add'
+        this.title = 'Vendor Contact - ' + payload.name
+        this.method = 'add'
       } else if (screenName === 'vendorContactEdit') {
         this.showContactForm = true
         this.contact = {}
         this.contact = payload.contact
-        this.contactTitle = 'Vendor Contact - ' + payload.name
-        this.contactMethod = 'edit'
+        this.title = 'Vendor Contact - ' + payload.name
+        this.method = 'edit'
       } else if (screenName === 'vendorProductAdd') {
         this.showProductForm = true
         this.product = {}
         this.product.vendor_id = payload.vendorId
-        this.productTitle = 'Vendor Product - ' + payload.name
-        this.productMethod = 'add'
+        this.title = 'Vendor Product - ' + payload.name
+        this.method = 'add'
       } else if (screenName === 'vendorProductEdit') {
         this.showProductForm = true
         this.product = payload.product
-        this.productTitle = 'Vendor Product - ' + payload.name
-        this.productMethod = 'edit'
+        this.title = 'Vendor Product - ' + payload.name
+        this.method = 'edit'
+      } else if (screenName === 'vendorNotesAdd') {
+        this.showNotesForm = true
+        this.notes = {}
+        this.notes.notes_id = payload.vendorId
+        this.notes.notes_type_id = '1000'
+        this.title = 'Vendor Notes - ' + payload.name
+        this.method = 'add'
       }
     })
   },

@@ -2,7 +2,7 @@
     <b-container class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
       <b-alert v-model="showalert" dismissible :variant="variant">{{this.message}}</b-alert>
       <h1>Change Password</h1>
-      <b-form name="changPasswordForm" @submit.prevent="changepassword">
+      <b-form name="changePasswordForm" @submit.prevent="changepassword">
           <b-row>
             <b-col class="col-lg-6">
               <b-form-group label="Password">

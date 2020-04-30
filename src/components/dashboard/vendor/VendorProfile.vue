@@ -52,16 +52,16 @@
       <br>
       <br>
       <b-card no-body>
-        <b-tabs card>       
+        <b-tabs card>
             <b-tab no-body title="Contacts">
               <contact-list :contacts = "contacts" :name = "name" v-if="true"/>
-              <b-button size="sm" variant="primary" @click="addVendorContact(id, name)">
+              <b-button size="sm" variant="primary" @click="add('vendorContactEdit', id, name)">
                   Add Vendor Contact
               </b-button>
             </b-tab>
             <b-tab no-body title="Products">
               <product-list :products = "products" :name = "name" v-if="true"/>
-              <b-button size="sm" variant="primary" @click="addVendorProduct(id, name)">
+              <b-button size="sm" variant="primary" @click="add('vendorProductAdd', id, name)">
                   Add Vendor Product
               </b-button>
             </b-tab>
@@ -78,16 +78,10 @@
               </b-card>
             </b-tab>
             <b-tab no-body title="Notes">
-              <b-card no-body>
-                <b-card-body class="text-center">
-                  <b-card-title>Not Available</b-card-title>
-
-                  <b-card-text>
-                    Notes list is not available yet
-                  </b-card-text>
-
-                </b-card-body>
-              </b-card>
+              <notes-list :notes = "notes" :name = "name" v-if="true"/>
+              <b-button size="sm" variant="primary" @click="add('vendorNotesAdd', id, name)">
+                  Add Vendor Notes
+              </b-button>
             </b-tab>
           </b-tabs>
         </b-card>
@@ -98,17 +92,20 @@
 import { eventBus } from '../../../main'
 import ContactList from '../contact/ContactList'
 import ProductList from '../product/ProductList'
+import NotesList from '../notes/NotesList'
 
 export default {
   name: 'VendorUpdate',
   components: {
     ContactList,
-    ProductList
+    ProductList,
+    NotesList
   },
   props: {
     vendor: {},
     contacts: Array,
-    products: Array
+    products: Array,
+    notes: Array
   },
   data () {
     return {
@@ -157,11 +154,8 @@ export default {
         }
       })
     },
-    addVendorContact: function (contactId, name) {
-      eventBus.$emit('showDashboardScreen', 'vendorContactAdd', {contactId: contactId, name: name}) // event processor in Dashboard.vue
-    },
-    addVendorProduct: function (id, name) {
-      eventBus.$emit('showDashboardScreen', 'vendorProductAdd', {vendorId: id, name: name}) // event processor in Dashboard.vue
+    add: function (action, id, name) {
+      eventBus.$emit('showDashboardScreen', action, {vendorId: id, name: name}) // event processor in Dashboard.vue
     },
     editForm: function (bool) {
       this.isEdit = bool

@@ -76,5 +76,5 @@ export const attachmentActions = {
           reject(err)
         })
     })
-  },  
+  }
 }

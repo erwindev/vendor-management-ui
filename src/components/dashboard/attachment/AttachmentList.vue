@@ -52,7 +52,7 @@
         </b-button>
         <b-button size="sm" @click="deleteAttachment(row.item.id)" class="mr-1">
           Delete
-        </b-button>        
+        </b-button>
       </template>
     </b-table>
 
@@ -130,7 +130,7 @@ export default {
         .catch(err => {
           console.log(err)
         })
-    } 
+    }
   }
 }
 </script>

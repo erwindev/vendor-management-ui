@@ -8,7 +8,7 @@
           <b-row>
             <b-col class="col-lg-6">
               <b-form-group label="Vednor Name">
-              <b-form-input v-model="name" v-validate="'required|min:3'" name="name"></b-form-input>
+              <b-form-input v-model="vendor.name" v-validate="'required|min:3'" name="name"></b-form-input>
               <span v-show="errors.has('name')" class="text-danger">{{ errors.first('name') }}</span>
             </b-form-group>
             </b-col>
@@ -16,7 +16,7 @@
           <b-row>
             <b-col class="col-lg-6">
               <b-form-group label="Status">
-                <b-form-select v-model="status" name="status">
+                <b-form-select v-model="vendor.status" name="status">
                     <option v-for="(selectOption, indexOpt) in select.options"
                         :key="indexOpt"
                         :value="selectOption"

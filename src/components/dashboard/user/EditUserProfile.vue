@@ -1,32 +1,32 @@
 <template>
-    <b-container class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+    <b-container fluid>
       <b-container v-if="isEdit" fluid>
-      <b-alert v-model="showalert" dismissible :variant="variant">{{this.message}}</b-alert>
-      <h1>Profile</h1>
-      <b-form @submit.prevent="updateuser">
-          <b-row>
-            <b-col class="col-lg-6">
-              <b-form-group label="First Name">
-              <b-form-input v-model="firstname" v-validate="'required|min:3'" name="firstname"></b-form-input>
-              <span v-show="errors.has('firstname')" class="text-danger">{{ errors.first('firstname') }}</span>
-            </b-form-group>
-            </b-col>
-          </b-row>
-          <b-row>
-            <b-col class="col-lg-6">
-              <b-form-group label="Last Name">
-              <b-form-input v-model="lastname" v-validate="'required|min:3'" name="lastname"></b-form-input>
-              <span v-show="errors.has('lastname')" class="text-danger">{{ errors.first('lastname') }}</span>
+        <b-alert v-model="showalert" dismissible :variant="variant">{{this.message}}</b-alert>
+        <h1>Profile</h1>
+        <b-form @submit.prevent="updateuser">
+            <b-row>
+              <b-col class="col-lg-6">
+                <b-form-group label="First Name">
+                <b-form-input v-model="firstname" v-validate="'required|min:3'" name="firstname"></b-form-input>
+                <span v-show="errors.has('firstname')" class="text-danger">{{ errors.first('firstname') }}</span>
               </b-form-group>
-            </b-col>
-          </b-row>
-          <b-row>
-            <b-col class="col-lg-6">
-              <b-button variant="primary" type="submit">Save</b-button>
-              <b-button @click="editForm(false)" variant="primary">Cancel</b-button>
-            </b-col>
-          </b-row>
-      </b-form>
+              </b-col>
+            </b-row>
+            <b-row>
+              <b-col class="col-lg-6">
+                <b-form-group label="Last Name">
+                <b-form-input v-model="lastname" v-validate="'required|min:3'" name="lastname"></b-form-input>
+                <span v-show="errors.has('lastname')" class="text-danger">{{ errors.first('lastname') }}</span>
+                </b-form-group>
+              </b-col>
+            </b-row>
+            <b-row>
+              <b-col class="col-lg-6">
+                <b-button variant="primary" type="submit">Save</b-button>
+                <b-button @click="editForm(false)" variant="primary">Cancel</b-button>
+              </b-col>
+            </b-row>
+        </b-form>
       </b-container>
       <b-container v-if="!isEdit" fluid>
         <h1>Profile</h1>

@@ -1,11 +1,13 @@
 <template>
-  <b-container class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-    <b-alert v-model="showalert" dismissible :variant="variant">{{this.message}}</b-alert>
-    <h1>Vendor List</h1>
+  <b-container fluid>
     <b-row>
+      <b-col>
+       <template v-if="isDashboard">
+          <h1>Vendor List</h1>
+       </template>
+      </b-col>
       <b-col lg="4" class="my-2">
         <b-form-group
-          label="Filter"
           label-cols-sm="3"
           label-align-sm="left"
           label-size="sm"
@@ -82,7 +84,8 @@ import { eventBus } from '../../../main'
 export default {
   name: 'VendorList',
   props: {
-    vendorList: Array
+    vendorList: Array,
+    isDashboard: false
   },
   data () {
     return {
@@ -103,9 +106,6 @@ export default {
       sortDirection: 'asc',
       filter: null,
       filterOn: [],
-      showalert: false,
-      variant: 'info',
-      message: '',
       contacts: [],
       vendor: {}
     }
@@ -148,9 +148,6 @@ export default {
           }
         })
         .catch(err => {
-          this.showalert = true
-          this.variant = 'danger'
-          this.message = err.response.data.message
           console.log(err)
         })
     }

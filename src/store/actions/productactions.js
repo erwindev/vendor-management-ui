@@ -21,10 +21,10 @@ export const productActions = {
         })
     })
   },
-  getAllProduct ({ commit }, vendorId) {
+  getAllProduct ({ commit }) {
     return new Promise((resolve, reject) => {
       axios.defaults.headers.common['Authorization'] = 'Bearrer ' + localStorage.getItem('jwt')
-      axios({ url: `${API_BASE}/product/vendor/${vendorId}`, method: 'GET' })
+      axios({ url: `${API_BASE}/product`, method: 'GET' })
         .then(resp => {
           commit(SUCCESS)
           resolve(resp)

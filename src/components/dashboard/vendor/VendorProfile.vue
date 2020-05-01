@@ -1,6 +1,6 @@
 <template>
-    <b-container class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-      <b-container v-if="isEdit" fluid>
+    <b-container fluid>
+      <template v-if="isEdit" fluid>
       <b-alert v-model="showalert" dismissible :variant="variant">{{this.message}}</b-alert>
       <h1>Vendor Profile</h1>
       <b-card>
@@ -37,8 +37,8 @@
           </b-row>
       </b-form>
       </b-card>
-      </b-container>
-      <b-container v-if="!isEdit" fluid>
+      </template>
+      <template v-if="!isEdit" fluid>
         <h1>Vendor Profile</h1>
         <b-card>
           <b-card-text>Vendor Name: {{ vendor.name  }}</b-card-text>
@@ -48,19 +48,17 @@
           <b-card-text>Last Updated Date: {{ vendor.updated_date }}</b-card-text>
           <b-button @click="editForm(true)" variant="primary">Edit</b-button>
         </b-card>
-      </b-container>
-      <br>
-      <br>
-      <b-card no-body>
+        <br>
+        <b-card no-body>
         <b-tabs card>
             <b-tab no-body title="Contacts">
               <contact-list :contacts = "contacts" :name = "name" v-if="true"/>
-              <b-button size="sm" variant="primary" @click="add('vendorContactEdit', id, name)">
+              <b-button size="sm" variant="primary" @click="add('vendorContactAdd', id, name)">
                   Add Vendor Contact
               </b-button>
             </b-tab>
             <b-tab no-body title="Products">
-              <product-list :products = "products" :name = "name" v-if="true"/>
+              <product-list :products = "products" :productfields = "productfields" :name = "name" v-if="true"/>
               <b-button size="sm" variant="primary" @click="add('vendorProductAdd', id, name)">
                   Add Vendor Product
               </b-button>
@@ -79,6 +77,7 @@
             </b-tab>
           </b-tabs>
         </b-card>
+      </template>
     </b-container>
 </template>
 
@@ -119,6 +118,13 @@ export default {
           'Active'
         ]
       },
+      productfields: [
+        { key: 'product_name', label: 'Product Name', sortable: true, sortDirection: 'desc' },
+        { key: 'user_by', label: 'Added By', sortable: false, class: 'text-left' },
+        { key: 'create_date', label: 'Create Date', sortable: false, class: 'text-left' },
+        { key: 'status', label: 'Status', sortable: false, class: 'text-left' },
+        { key: 'actions', label: 'Actions' }
+      ],
       isEdit: false
     }
   },

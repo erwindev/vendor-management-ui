@@ -1,5 +1,5 @@
 <template>
-    <b-nav class="col-md-2 sidebar">
+    <b-nav class="col-md-2 d-none d-md-block bg-light sidebar">
         <b-container class="sidebar-sticky">
           <b-card no-body>
             <b-card-header>
@@ -26,7 +26,7 @@
                   <b-link href="#">Add</b-link>
                 </b-card-text>
                 <b-card-text>
-                  <b-link href="#">List</b-link>
+                  <b-link v-on:click="showDashboard('productList')">List</b-link>
                 </b-card-text>
               </b-card-body>
             </b-collapse>
@@ -67,6 +67,8 @@ export default {
     showDashboard: function (screen) {
       if (screen === 'vendorList') {
         this.processVendorListScreen(screen)
+      } else if (screen === 'productList') {
+        this.processProductListScreen(screen)
       } else {
         eventBus.$emit('showDashboardScreen', screen, null) // event processor in Dashboard.vue
       }
@@ -79,6 +81,17 @@ export default {
         .then(resp => {
           this.vendorList = resp.data.vendorlist
           eventBus.$emit('showDashboardScreen', screen, this.vendorList) // event processor in Dashboard.vue
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    processProductListScreen: function (screen) {
+      this.$store
+        .dispatch('getAllProduct')
+        .then(resp => {
+          this.productList = resp.data.productlist
+          eventBus.$emit('showDashboardScreen', screen, this.productList) // event processor in Dashboard.vue
         })
         .catch(err => {
           console.log(err)

@@ -1,34 +1,43 @@
 <template>
-      <div class="row">
-        <dashboard-left-nav/>
-        <dashboard-landing v-if="showDashboardLanding"/>
-        <edit-user-profile v-if="showEditUserProfile"/>
-        <change-password v-if="showChangePassword"/>
-        <vendor-add v-if="showVendorAdd"/>
-        <vendor-list :vendorList = "vendorList" v-if="showVendorList"/>
-        <vendor-profile :vendor = "vendor.vendor"
-                        :contacts = "vendor.contacts"
-                        :products = "vendor.products"
-                        :attachments = "vendor.attachments"
-                        :notes = "vendor.notes"
-                        v-if="showVendorProfile"/>
-        <contact-form :contactdata = "contact"
-                      :methodtype = "method"
-                      :title= "title"
-                      v-if="showContactForm"/>
-        <product-form :productdata = "product"
-                      :methodtype = "method"
-                      :title= "title"
-                      v-if="showProductForm"/>
-        <notes-form :notesdata = "notes"
-                      :methodtype = "method"
-                      :title= "title"
-                      v-if="showNotesForm"/>
-        <attachment-form :attachmentdata = "attachment"
-                      :methodtype = "method"
-                      :title= "title"
-                      v-if="showAttachmentForm"/>
-      </div>
+      <b-container fluid>
+        <b-row>
+          <dashboard-left-nav/>
+          <b-container class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <dashboard-landing v-if="showDashboardLanding"/>
+            <edit-user-profile v-if="showEditUserProfile"/>
+            <change-password v-if="showChangePassword"/>
+            <vendor-add v-if="showVendorAdd"/>
+            <vendor-list :vendorList = "vendorList" :isDashboard="true" v-if="showVendorList"/>
+            <vendor-profile :vendor = "vendor.vendor"
+                            :contacts = "vendor.contacts"
+                            :products = "vendor.products"
+                            :attachments = "vendor.attachments"
+                            :notes = "vendor.notes"
+                            v-if="showVendorProfile"/>
+            <contact-form :contactdata = "contact"
+                          :methodtype = "method"
+                          :title= "title"
+                          v-if="showContactForm"/>
+            <product-list :products = "productList" 
+                          :productfields = "productfields" 
+                          :name = "name" 
+                          :isDashboard="true"
+                          v-if="showProductList"/>                      
+            <product-form :productdata = "product"
+                          :methodtype = "method"
+                          :title= "title"
+                          v-if="showProductForm"/>
+            <notes-form :notesdata = "notes"
+                          :methodtype = "method"
+                          :title= "title"
+                          v-if="showNotesForm"/>
+            <attachment-form :attachmentdata = "attachment"
+                          :methodtype = "method"
+                          :title= "title"
+                          v-if="showAttachmentForm"/>
+          </b-container>
+        </b-row>
+      </b-container>
 </template>
 
 <script>
@@ -42,6 +51,7 @@ import VendorList from './vendor/VendorList.vue'
 import VendorProfile from './vendor/VendorProfile.vue'
 import ContactForm from './contact/ContactForm.vue'
 import ProductForm from './product/ProductForm.vue'
+import ProductList from './product/ProductList.vue'
 import NotesForm from './notes/NotesForm.vue'
 import AttachmentForm from './attachment/AttachmentForm.vue'
 
@@ -57,6 +67,7 @@ export default {
       showVendorProfile: false,
       showContactForm: false,
       showProductForm: false,
+      showProductList: false,
       showNotesForm: false,
       showAttachmentForm: false,
       title: '',
@@ -66,7 +77,15 @@ export default {
       contact: {},
       product: {},
       notes: {},
-      attachment: {}
+      attachment: {},
+      productfields: [
+        { key: 'vendor_name', label: 'Vendor Name', sortable: true, sortDirection: 'desc' },        
+        { key: 'product_name', label: 'Product Name', sortable: true, sortDirection: 'desc' },
+        { key: 'user_by', label: 'Added By', sortable: false, class: 'text-left' },
+        { key: 'create_date', label: 'Create Date', sortable: false, class: 'text-left' },
+        { key: 'status', label: 'Status', sortable: false, class: 'text-left' },
+        { key: 'actions', label: 'Actions' }
+      ],      
     }
   },
   components: {
@@ -79,6 +98,7 @@ export default {
     VendorProfile,
     ContactForm,
     ProductForm,
+    ProductList,
     NotesForm,
     AttachmentForm
   },
@@ -92,6 +112,7 @@ export default {
       this.showVendorProfile = false
       this.showContactForm = false
       this.showProductForm = false
+      this.showProductList = false
       this.showNotesForm = false
       this.showAttachmentForm = false
 
@@ -133,6 +154,9 @@ export default {
         this.product = payload.product
         this.title = 'Vendor Product - ' + payload.name
         this.method = 'edit'
+      } else if (screenName === 'productList') {
+        this.showProductList = true
+        this.productList = payload
       } else if (screenName === 'vendorNotesAdd') {
         this.showNotesForm = true
         this.notes = {}

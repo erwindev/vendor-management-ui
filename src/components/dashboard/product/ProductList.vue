@@ -1,9 +1,13 @@
 <template>
   <b-container fluid>
     <b-row>
+      <b-col>
+       <template v-if="isDashboard">
+          <h1>Product List</h1>
+       </template>
+      </b-col>
       <b-col lg="4" class="my-2">
         <b-form-group
-          label="Filter"
           label-cols-sm="2"
           label-align-sm="right"
           label-size="sm"
@@ -30,7 +34,7 @@
       small
       head-variant="light"
       :items="items"
-      :fields="fields"
+      :fields="productfields"
       :current-page="currentPage"
       :per-page="perPage"
       :filter="filter"
@@ -81,18 +85,13 @@ export default {
   name: 'ContactList',
   props: {
     products: Array,
-    name: ''
+    productfields: Array,
+    name: '',
+    isDashboard: false
   },
   data () {
     return {
       items: this.products,
-      fields: [
-        { key: 'product_name', label: 'Product Name', sortable: true, sortDirection: 'desc' },
-        { key: 'user_by', label: 'Added By', sortable: false, class: 'text-left' },
-        { key: 'create_date', label: 'Create Date', sortable: false, class: 'text-left' },
-        { key: 'status', label: 'Status', sortable: false, class: 'text-left' },
-        { key: 'actions', label: 'Actions' }
-      ],
       totalRows: 1,
       currentPage: 1,
       perPage: 5,
@@ -101,10 +100,7 @@ export default {
       sortDesc: false,
       sortDirection: 'asc',
       filter: null,
-      filterOn: [],
-      showalert: false,
-      variant: 'info',
-      message: ''
+      filterOn: []
     }
   },
   mounted () {

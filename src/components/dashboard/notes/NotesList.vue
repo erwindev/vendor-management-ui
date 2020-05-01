@@ -1,9 +1,13 @@
 <template>
   <b-container fluid>
     <b-row>
+      <b-col>
+       <template v-if="isDashboard">
+          <h1>Notes List</h1>
+       </template>
+      </b-col>
       <b-col lg="4" class="my-2">
         <b-form-group
-          label="Filter"
           label-cols-sm="2"
           label-align-sm="right"
           label-size="sm"
@@ -72,7 +76,8 @@ export default {
   name: 'NotesList',
   props: {
     notes: Array,
-    name: ''
+    name: '',
+    isDashboard: false
   },
   data () {
     return {
@@ -91,10 +96,7 @@ export default {
       sortDesc: false,
       sortDirection: 'asc',
       filter: null,
-      filterOn: [],
-      showalert: false,
-      variant: 'info',
-      message: ''
+      filterOn: []
     }
   },
   mounted () {

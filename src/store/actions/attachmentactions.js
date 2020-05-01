@@ -6,11 +6,11 @@ import {
   SUCCESS
 } from '../mutation-types'
 
-export const notesAction = {
-  addNotes ({ commit }, payload) {
+export const attachmentActions = {
+  addAttachment ({ commit }, payload) {
     return new Promise((resolve, reject) => {
       axios.defaults.headers.common['Authorization'] = 'Bearrer ' + localStorage.getItem('jwt')
-      axios({ url: `${API_BASE}/notes`, data: payload, method: 'POST' })
+      axios({ url: `${API_BASE}/attachment`, data: payload, method: 'POST' })
         .then(resp => {
           commit(SUCCESS)
           resolve(resp)
@@ -21,10 +21,10 @@ export const notesAction = {
         })
     })
   },
-  getAllNotes ({ commit }, notesId, notesTypeId) {
+  getAllAttachment ({ commit }, attachmentId, attachmentTypeId) {
     return new Promise((resolve, reject) => {
       axios.defaults.headers.common['Authorization'] = 'Bearrer ' + localStorage.getItem('jwt')
-      axios({ url: `${API_BASE}/notes/${notesId}/${notesTypeId}`, method: 'GET' })
+      axios({ url: `${API_BASE}/attachment/${attachmentId}/${attachmentTypeId}`, method: 'GET' })
         .then(resp => {
           commit(SUCCESS)
           resolve(resp)
@@ -35,10 +35,10 @@ export const notesAction = {
         })
     })
   },
-  getNote ({ commit }, id) {
+  getAttachment ({ commit }, id) {
     return new Promise((resolve, reject) => {
       axios.defaults.headers.common['Authorization'] = 'Bearrer ' + localStorage.getItem('jwt')
-      axios({ url: `${API_BASE}/notes/${id}`, method: 'GET' })
+      axios({ url: `${API_BASE}/attachment/${id}`, method: 'GET' })
         .then(resp => {
           commit(SUCCESS)
           resolve(resp)
@@ -49,10 +49,10 @@ export const notesAction = {
         })
     })
   },
-  deleteNotes ({ commit }, id) {
+  updateAttachment ({ commit }, payload) {
     return new Promise((resolve, reject) => {
       axios.defaults.headers.common['Authorization'] = 'Bearrer ' + localStorage.getItem('jwt')
-      axios({ url: `${API_BASE}/notes/${id}`, method: 'DELETE' })
+      axios({ url: `${API_BASE}/attachment/${payload.id}`, data: payload, method: 'PUT' })
         .then(resp => {
           commit(SUCCESS)
           resolve(resp)
@@ -62,5 +62,19 @@ export const notesAction = {
           reject(err)
         })
     })
-  }
+  },
+  deleteAttachment ({ commit }, id) {
+    return new Promise((resolve, reject) => {
+      axios.defaults.headers.common['Authorization'] = 'Bearrer ' + localStorage.getItem('jwt')
+      axios({ url: `${API_BASE}/attachment/${id}`, method: 'DELETE' })
+        .then(resp => {
+          commit(SUCCESS)
+          resolve(resp)
+        })
+        .catch((err) => {
+          commit(ERROR)
+          reject(err)
+        })
+    })
+  },  
 }

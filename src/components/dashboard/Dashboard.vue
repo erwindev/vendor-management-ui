@@ -9,6 +9,7 @@
         <vendor-profile :vendor = "vendor.vendor"
                         :contacts = "vendor.contacts"
                         :products = "vendor.products"
+                        :attachments = "vendor.attachments"
                         :notes = "vendor.notes"
                         v-if="showVendorProfile"/>
         <contact-form :contactdata = "contact"
@@ -23,6 +24,10 @@
                       :methodtype = "method"
                       :title= "title"
                       v-if="showNotesForm"/>
+        <attachment-form :attachmentdata = "attachment"
+                      :methodtype = "method"
+                      :title= "title"
+                      v-if="showAttachmentForm"/>
       </div>
 </template>
 
@@ -38,6 +43,7 @@ import VendorProfile from './vendor/VendorProfile.vue'
 import ContactForm from './contact/ContactForm.vue'
 import ProductForm from './product/ProductForm.vue'
 import NotesForm from './notes/NotesForm.vue'
+import AttachmentForm from './attachment/AttachmentForm.vue'
 
 export default {
   name: 'dashboard',
@@ -52,13 +58,15 @@ export default {
       showContactForm: false,
       showProductForm: false,
       showNotesForm: false,
+      showAttachmentForm: false,
       title: '',
       method: '',
       vendorList: [],
       vendor: {},
       contact: {},
       product: {},
-      notes: {}
+      notes: {},
+      attachment: {}
     }
   },
   components: {
@@ -71,7 +79,8 @@ export default {
     VendorProfile,
     ContactForm,
     ProductForm,
-    NotesForm
+    NotesForm,
+    AttachmentForm
   },
   created () {
     eventBus.$on('showDashboardScreen', (screenName, payload) => {
@@ -84,6 +93,7 @@ export default {
       this.showContactForm = false
       this.showProductForm = false
       this.showNotesForm = false
+      this.showAttachmentForm = false
 
       if (screenName === 'dasbboardLanding') {
         this.showDashboardLanding = true
@@ -130,6 +140,19 @@ export default {
         this.notes.notes_type_id = '1000'
         this.title = 'Vendor Notes - ' + payload.name
         this.method = 'add'
+      } else if (screenName === 'vendorAttachmentAdd') {
+        this.showAttachmentForm = true
+        this.attachment = {}
+        this.attachment.attachment_id = payload.vendorId
+        this.attachment.attachment_type_id = '1000'
+        this.title = 'Vendor Attacment - ' + payload.name
+        this.method = 'add'
+      } else if (screenName === 'vendorAttachmentEdit') {
+        this.showAttachmentForm = true
+        this.attachment = {}
+        this.attachment = payload.attachment
+        this.title = 'Vendor Attachment - ' + payload.name
+        this.method = 'edit'
       }
     })
   },

@@ -65,17 +65,11 @@
                   Add Vendor Product
               </b-button>
             </b-tab>
-            <b-tab no-body title="Attachment">
-              <b-card no-body>
-                <b-card-body class="text-center">
-                  <b-card-title>Not Available</b-card-title>
-
-                  <b-card-text>
-                    Attachment list is not available yet
-                  </b-card-text>
-
-                </b-card-body>
-              </b-card>
+            <b-tab no-body title="Attachments">
+              <attachment-list :attachments = "attachments" :name = "name" v-if="true"/>
+              <b-button size="sm" variant="primary" @click="add('vendorAttachmentAdd', id, name)">
+                  Add Vendor Attachment
+              </b-button>
             </b-tab>
             <b-tab no-body title="Notes">
               <notes-list :notes = "notes" :name = "name" v-if="true"/>
@@ -93,19 +87,22 @@ import { eventBus } from '../../../main'
 import ContactList from '../contact/ContactList'
 import ProductList from '../product/ProductList'
 import NotesList from '../notes/NotesList'
+import AttachmentList from '../attachment/AttachmentList'
 
 export default {
   name: 'VendorUpdate',
   components: {
     ContactList,
     ProductList,
-    NotesList
+    NotesList,
+    AttachmentList
   },
   props: {
     vendor: {},
     contacts: Array,
     products: Array,
-    notes: Array
+    notes: Array,
+    attachments: Array
   },
   data () {
     return {

@@ -18,11 +18,11 @@
                           :methodtype = "method"
                           :title= "title"
                           v-if="showContactForm"/>
-            <product-list :products = "productList" 
-                          :productfields = "productfields" 
-                          :name = "name" 
+            <product-list :products = "productList"
+                          :productfields = "productfields"
+                          :name = "name"
                           :isDashboard="true"
-                          v-if="showProductList"/>                      
+                          v-if="showProductList"/>
             <product-form :productdata = "product"
                           :methodtype = "method"
                           :title= "title"
@@ -79,13 +79,13 @@ export default {
       notes: {},
       attachment: {},
       productfields: [
-        { key: 'vendor_name', label: 'Vendor Name', sortable: true, sortDirection: 'desc' },        
+        { key: 'vendor_name', label: 'Vendor Name', sortable: true, sortDirection: 'desc' },
         { key: 'product_name', label: 'Product Name', sortable: true, sortDirection: 'desc' },
         { key: 'user_by', label: 'Added By', sortable: false, class: 'text-left' },
         { key: 'create_date', label: 'Create Date', sortable: false, class: 'text-left' },
         { key: 'status', label: 'Status', sortable: false, class: 'text-left' },
         { key: 'actions', label: 'Actions' }
-      ],      
+      ]
     }
   },
   components: {
@@ -151,8 +151,8 @@ export default {
         this.method = 'add'
       } else if (screenName === 'vendorProductEdit') {
         this.showProductForm = true
-        this.product = payload.product
-        this.title = 'Vendor Product - ' + payload.name
+        this.product = payload
+        this.title = 'Vendor Product - ' + this.product.vendor_name
         this.method = 'edit'
       } else if (screenName === 'productList') {
         this.showProductList = true

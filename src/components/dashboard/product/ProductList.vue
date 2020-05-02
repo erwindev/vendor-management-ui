@@ -114,7 +114,7 @@ export default {
       this.currentPage = 1
     },
     editProduct: function (product) {
-      eventBus.$emit('showDashboardScreen', 'vendorProductEdit', {product: product, name: this.name}) // event processor in Dashboard.vue
+      eventBus.$emit('showDashboardScreen', 'vendorProductEdit', product) // event processor in Dashboard.vue
     },
     toggleStatus: function (id, status) {
       if (status === 'Active') {

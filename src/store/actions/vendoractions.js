@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {API_BASE} from '../../config'
+import {VENDOR_API_BASE} from '../../config'
 
 import {
   ERROR,
@@ -10,7 +10,7 @@ export const vendorActions = {
   addVendor ({ commit }, payload) {
     return new Promise((resolve, reject) => {
       axios.defaults.headers.common['Authorization'] = 'Bearrer ' + localStorage.getItem('jwt')
-      axios({ url: `${API_BASE}/vendor`, data: payload, method: 'POST' })
+      axios({ url: `${VENDOR_API_BASE}/vendor`, data: payload, method: 'POST' })
         .then(resp => {
           commit(SUCCESS)
           resolve(resp)
@@ -24,7 +24,7 @@ export const vendorActions = {
   getVendor ({ commit }, vendorId) {
     return new Promise((resolve, reject) => {
       axios.defaults.headers.common['Authorization'] = 'Bearrer ' + localStorage.getItem('jwt')
-      axios({ url: `${API_BASE}/vendor/${vendorId}`, method: 'GET' })
+      axios({ url: `${VENDOR_API_BASE}/vendor/${vendorId}`, method: 'GET' })
         .then(resp => {
           commit(SUCCESS)
           resolve(resp)
@@ -38,7 +38,7 @@ export const vendorActions = {
   updateVendor ({ commit }, payload) {
     return new Promise((resolve, reject) => {
       axios.defaults.headers.common['Authorization'] = 'Bearrer ' + localStorage.getItem('jwt')
-      axios({ url: `${API_BASE}/vendor`, data: payload, method: 'PUT' })
+      axios({ url: `${VENDOR_API_BASE}/vendor`, data: payload, method: 'PUT' })
         .then(resp => {
           commit(SUCCESS)
           resolve(resp)
@@ -52,7 +52,7 @@ export const vendorActions = {
   getAllVendor ({ commit }) {
     return new Promise((resolve, reject) => {
       axios.defaults.headers.common['Authorization'] = 'Bearrer ' + localStorage.getItem('jwt')
-      axios({ url: `${API_BASE}/vendor`, method: 'GET' })
+      axios({ url: `${VENDOR_API_BASE}/vendor`, method: 'GET' })
         .then(resp => {
           commit(SUCCESS)
           resolve(resp)

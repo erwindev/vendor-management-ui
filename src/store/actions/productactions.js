@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {API_BASE} from '../../config'
+import {PRODUCT_API_BASE} from '../../config'
 
 import {
   ERROR,
@@ -10,7 +10,7 @@ export const productActions = {
   addProduct ({ commit }, payload) {
     return new Promise((resolve, reject) => {
       axios.defaults.headers.common['Authorization'] = 'Bearrer ' + localStorage.getItem('jwt')
-      axios({ url: `${API_BASE}/product`, data: payload, method: 'POST' })
+      axios({ url: `${PRODUCT_API_BASE}/product`, data: payload, method: 'POST' })
         .then(resp => {
           commit(SUCCESS)
           resolve(resp)
@@ -24,7 +24,7 @@ export const productActions = {
   getAllProduct ({ commit }) {
     return new Promise((resolve, reject) => {
       axios.defaults.headers.common['Authorization'] = 'Bearrer ' + localStorage.getItem('jwt')
-      axios({ url: `${API_BASE}/product`, method: 'GET' })
+      axios({ url: `${PRODUCT_API_BASE}/product`, method: 'GET' })
         .then(resp => {
           commit(SUCCESS)
           resolve(resp)
@@ -38,7 +38,7 @@ export const productActions = {
   getProduct ({ commit }, id) {
     return new Promise((resolve, reject) => {
       axios.defaults.headers.common['Authorization'] = 'Bearrer ' + localStorage.getItem('jwt')
-      axios({ url: `${API_BASE}/product/${id}`, method: 'GET' })
+      axios({ url: `${PRODUCT_API_BASE}/product/${id}`, method: 'GET' })
         .then(resp => {
           commit(SUCCESS)
           resolve(resp)
@@ -52,7 +52,7 @@ export const productActions = {
   updateProduct ({ commit }, payload) {
     return new Promise((resolve, reject) => {
       axios.defaults.headers.common['Authorization'] = 'Bearrer ' + localStorage.getItem('jwt')
-      axios({ url: `${API_BASE}/product`, data: payload, method: 'PUT' })
+      axios({ url: `${PRODUCT_API_BASE}/product`, data: payload, method: 'PUT' })
         .then(resp => {
           commit(SUCCESS)
           resolve(resp)

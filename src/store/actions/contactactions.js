@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {API_BASE} from '../../config'
+import {CONTACT_API_BASE} from '../../config'
 
 import {
   ERROR,
@@ -10,7 +10,7 @@ export const contactActions = {
   addContact ({ commit }, payload) {
     return new Promise((resolve, reject) => {
       axios.defaults.headers.common['Authorization'] = 'Bearrer ' + localStorage.getItem('jwt')
-      axios({ url: `${API_BASE}/contact`, data: payload, method: 'POST' })
+      axios({ url: `${CONTACT_API_BASE}/contact`, data: payload, method: 'POST' })
         .then(resp => {
           commit(SUCCESS)
           resolve(resp)
@@ -24,7 +24,7 @@ export const contactActions = {
   getAllContact ({ commit }, contactId, contactTypeId) {
     return new Promise((resolve, reject) => {
       axios.defaults.headers.common['Authorization'] = 'Bearrer ' + localStorage.getItem('jwt')
-      axios({ url: `${API_BASE}/contact/${contactId}/${contactTypeId}`, method: 'GET' })
+      axios({ url: `${CONTACT_API_BASE}/contact/${contactId}/${contactTypeId}`, method: 'GET' })
         .then(resp => {
           commit(SUCCESS)
           resolve(resp)
@@ -38,7 +38,7 @@ export const contactActions = {
   getContact ({ commit }, id) {
     return new Promise((resolve, reject) => {
       axios.defaults.headers.common['Authorization'] = 'Bearrer ' + localStorage.getItem('jwt')
-      axios({ url: `${API_BASE}/contact/${id}`, method: 'GET' })
+      axios({ url: `${CONTACT_API_BASE}/contact/${id}`, method: 'GET' })
         .then(resp => {
           commit(SUCCESS)
           resolve(resp)
@@ -52,7 +52,7 @@ export const contactActions = {
   updateContact ({ commit }, payload) {
     return new Promise((resolve, reject) => {
       axios.defaults.headers.common['Authorization'] = 'Bearrer ' + localStorage.getItem('jwt')
-      axios({ url: `${API_BASE}/contact`, data: payload, method: 'PUT' })
+      axios({ url: `${CONTACT_API_BASE}/contact`, data: payload, method: 'PUT' })
         .then(resp => {
           commit(SUCCESS)
           resolve(resp)

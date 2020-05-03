@@ -17,7 +17,7 @@ export const userActions = {
   register ({ commit }, payload) {
     return new Promise((resolve, reject) => {
       commit(REG_REQUEST)
-      axios({ url: `${USER_API_BASE}/user/`, data: payload, method: 'POST' })
+      axios({ url: `${USER_API_BASE}/user`, data: payload, method: 'POST' })
         .then(resp => {
           commit(SUCCESS)
           resolve(resp)

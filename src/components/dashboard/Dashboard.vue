@@ -157,6 +157,7 @@ export default {
       } else if (screenName === 'productList') {
         this.showProductList = true
         this.productList = payload
+        this.name = ''
       } else if (screenName === 'vendorNotesAdd') {
         this.showNotesForm = true
         this.notes = {}

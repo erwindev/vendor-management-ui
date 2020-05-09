@@ -6,9 +6,9 @@ import {userMutations} from './mutations'
 import {userActions} from './actions/useractions'
 import {vendorActions} from './actions/vendoractions'
 import {contactActions} from './actions/contactactions'
-import {productActions} from './actions/productActions'
-import {notesActions} from './actions/notesActions'
-import {attachmentActions} from './actions/attachmentActions'
+import {productActions} from './actions/productactions'
+import {notesActions} from './actions/notesactions'
+import {attachmentActions} from './actions/attachmentactions'
 import {userInfoGetters} from './getters'
 
 Vue.use(Vuex)

@@ -31,6 +31,7 @@ export const userActions = {
   login ({ commit }, payload) {
     return new Promise((resolve, reject) => {
       commit(AUTH_REQUEST)
+      console.log(process.env.VUE_APP_API_URL)
       axios({ url: `${USER_API_BASE}/auth/login`, data: payload, method: 'POST' })
         .then(resp => {
           const token = resp.data.authdata.token

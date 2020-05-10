@@ -16,5 +16,22 @@ spec:
     spec:
       containers:
       - name: vms-ui
-        image: ealberto/vms-ui:latest
+        image: gcr.io/erwindev-vms/vms-ui
+        ports: 
+          - containerPort: 80
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          periodSeconds: 10
+          timeoutSeconds: 5
+          successThreshold: 1
+          failureThreshold: 2
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 120
+          periodSeconds: 30
+          timeoutSeconds: 3             
       restartPolicy: Always

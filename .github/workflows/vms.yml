@@ -30,11 +30,11 @@ jobs:
         
     - name: Build docker image
       run: |        
-        docker build --file Dockerfile --tag gcr.io/${{ secrets.GCLOUD_PROJECT }}/vms-app:latest .
+        docker build --file Dockerfile --tag gcr.io/${{ secrets.GCLOUD_PROJECT }}/vms-ui:latest .
         
     - name: Publish docker image
       run: |
-        docker push gcr.io/${{ secrets.GCLOUD_PROJECT }}/vms-app:latest
+        docker push gcr.io/${{ secrets.GCLOUD_PROJECT }}/vms-ui:latest
 
     # - name: Deploy docker image to GKE
     #   run: |

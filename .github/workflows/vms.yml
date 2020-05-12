@@ -24,9 +24,9 @@ jobs:
       run: |
         gcloud auth configure-docker 
 
-    # - name: Google Auth Container Cluster        
-    #   run: |
-    #     gcloud container clusters get-credentials vms-cluster --zone us-east1-b          
+    - name: Google Auth Container Cluster        
+      run: |
+        gcloud container clusters get-credentials vms-cluster --zone us-east1-b          
         
     - name: Build docker image
       run: |        

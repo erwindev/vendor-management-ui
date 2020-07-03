@@ -1,3 +1,5 @@
+![VMS application](https://github.com/erwindev/vendor-management-ui/workflows/VMS%20application/badge.svg)
+
 # Vendor Management System UI
 
 ## Clone project
